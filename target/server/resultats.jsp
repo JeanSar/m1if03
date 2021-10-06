@@ -9,14 +9,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="Bulletin.java" %>
-<%@ page import="Candidat.java" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
+<%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
 <jsp:useBean id="bulletins" type="java.util.List" beanName="bulletins" scope="application"/>
-<xml:lang html >
+<xml:lang html>
 <head>
     <title>Vote</title>
-    <link rel="stylesheet" type="text/css" href="static/vote.css">
+    <link rel="stylesheet" type="text/css" href="vote.css">
 </head>
 <body>
 <header>
