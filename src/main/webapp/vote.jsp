@@ -45,7 +45,7 @@
             }
 
         %>
-        <form method="post" action="init">
+        <form method="post" action="">
             Sélectionnez un candidat :
             <select name="pets" id="pet-select">
                 <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
