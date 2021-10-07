@@ -12,8 +12,7 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
-<jsp:useBean id="bulletins" type="java.util.List" beanName="bulletins" scope="application"/>
-<xml:lang html>
+<html>
 <head>
     <title>Vote</title>
     <link rel="stylesheet" type="text/css" href="vote.css">
@@ -43,10 +42,7 @@
             for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
                 votes.put(nomCandidat, 0);
             }
-            for (Bulletin bulletin : (List<Bulletin>) bulletins) {
-                int score = ((Map<String, Integer>) votes).get(bulletin.getCandidat().getNom());
-                votes.put(bulletin.getCandidat().getNom(), ++score);
-            }
+
         %>
 
         <ul>
