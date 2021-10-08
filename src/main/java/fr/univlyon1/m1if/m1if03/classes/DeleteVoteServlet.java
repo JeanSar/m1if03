@@ -3,10 +3,11 @@ import javax.servlet.*;
 import java.io.*;  
 public class DeleteVoteServlet extends HttpServlet {
  
-    private String message;
+    private String message, url;
  
     public void init() throws ServletException {
        // Do required initialization
+       url = "/";
        message = "Servlet qui traite les données du formulaire envoyé depuis ballot.jsp";
     }
  
@@ -14,11 +15,7 @@ public class DeleteVoteServlet extends HttpServlet {
        throws ServletException, IOException {
        
        // Set response content type
-       response.setContentType("text/html");
- 
-       // Actual logic goes here.
-       PrintWriter out = response.getWriter();
-       out.println("<h1>" + message + "</h1>");
+       response.sendRedirect(url);
     }
  
     public void destroy() {

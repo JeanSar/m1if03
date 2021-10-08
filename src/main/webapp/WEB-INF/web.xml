@@ -11,12 +11,32 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>  
-    <servlet-name>lenomdemaservlet</servlet-name>  
+    <servlet-name>deco</servlet-name>  
     <servlet-class>DecoServlet</servlet-class>  
     </servlet>  
     
     <servlet-mapping>  
-    <servlet-name>lenomdemaservlet</servlet-name>  
+    <servlet-name>deco</servlet-name>  
     <url-pattern>/Deco</url-pattern>  
+    </servlet-mapping>  
+
+    <servlet>  
+        <servlet-name>vote</servlet-name>  
+        <servlet-class>VoteServlet</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>vote</servlet-name>  
+        <url-pattern>/Vote</url-pattern>  
+    </servlet-mapping>  
+
+    <servlet>  
+        <servlet-name>deleteVote</servlet-name>  
+        <servlet-class>DeleteVoteServlet</servlet-class>  
+    </servlet>  
+    
+    <servlet-mapping>  
+        <servlet-name>deleteVote</servlet-name>  
+        <url-pattern>/DeleteVote</url-pattern>  
     </servlet-mapping>  
 </web-app>
