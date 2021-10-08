@@ -12,6 +12,8 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
+
+
 <html>
 <head>
     <title>Vote</title>
@@ -19,7 +21,7 @@
 </head>
 <body>
 <header>
-    <c:if test="${sessionScope.user != null}">
+    <c:if test="${!empty sessionScope}">
         <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
     </c:if>
     <h1 class="header-titre">Résultats actuels de l'élection</h1>
