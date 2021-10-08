@@ -1,13 +1,17 @@
 import javax.servlet.http.*;  
-import javax.servlet.*;  
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+
 import java.io.*;  
-public class VoteServlet extends HttpServlet {
+
+@WebServlet(name = "Deco", value = "/deco")
+public class DecoServlet extends HttpServlet {
  
     private String message;
  
     public void init() throws ServletException {
        // Do required initialization
-       message = "Servlet qui traite les données du formulaire envoyé depuis vote.jsp";
+       message = "Déconnecter l'utilisateur en supprimant ses attributs de session et de le renvoyer vers la page d'accueil";
     }
  
     public void doGet(HttpServletRequest request, HttpServletResponse response)

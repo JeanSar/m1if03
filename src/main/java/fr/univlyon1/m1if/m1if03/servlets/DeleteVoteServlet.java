@@ -1,13 +1,17 @@
 import javax.servlet.http.*;  
-import javax.servlet.*;  
-import java.io.*;  
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+
+import java.io.*; 
+
+@WebServlet(name = "DeleteVote", value = "/deleteVote")
 public class DeleteVoteServlet extends HttpServlet {
  
     private String message, url;
  
     public void init() throws ServletException {
        // Do required initialization
-       url = "/";
+       url = "resultats.jsp";
        message = "Servlet qui traite les données du formulaire envoyé depuis ballot.jsp";
     }
  
