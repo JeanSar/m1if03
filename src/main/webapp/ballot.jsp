@@ -38,15 +38,22 @@
 
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <h2>Votre preuve de vote</h2>
+        <c:if test="${sessionScope.vote != null}">
         <%
-            Map<String, Integer> votes = new HashMap<>();
-            for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
-                votes.put(nomCandidat, 0);
-            }
-
+                    
+            <p class="header-user"> Bonjour ${sessionScope.vote.nom}</p>
+      
+            String nomCandidatChoisi = "<b>""</b>";
+            pageContext.setAttribute("nomCandidatChoisi", nomCandidatChoisi);
         %>
+        </c:if>
+
+        <c:set var="test" value="${nomCandidatChoisi}" />
+
         <form method="post" action="">
-            <p>Votre vote: <b>Hamza et Jean</b></p>
+            <p>Votre vote:
+                <c:out value="${test}" escapeXml="false" />
+            </p>
             <p>
                 <input type="submit" name="action" value="supprimer">
             </p>

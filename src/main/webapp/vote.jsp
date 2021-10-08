@@ -45,11 +45,11 @@
             }
 
         %>
-        <form method="post" action="">
+        <form method="post" action="vote">
             Sélectionnez un candidat :
-            <select name="pets" id="pet-select">
+            <select name="candidats" id="candidats">
                 <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
-                    <option value="${nomCandidat}"><c:out value="${nomCandidat}"/></option>
+                    <option id="candidats" value="${nomCandidat}"><c:out value="${nomCandidat}"/></option>
                 </c:forEach>
                
             </select>
