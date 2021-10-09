@@ -38,27 +38,23 @@
 
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <h2>Votre preuve de vote</h2>
-        <c:if test="${sessionScope.vote != null}">
-        <%
-                    
-            <p class="header-user"> Bonjour ${sessionScope.vote.nom}</p>
-      
-            String nomCandidatChoisi = "<b>""</b>";
-            pageContext.setAttribute("nomCandidatChoisi", nomCandidatChoisi);
-        %>
-        </c:if>
-
-        <c:set var="test" value="${nomCandidatChoisi}" />
-
-        <form method="post" action="">
-            <p>Votre vote:
-                <c:out value="${test}" escapeXml="false" />
-            </p>
+        <c:if test="${ !empty sessionScope.vote}">
+            <form method="post" action="deleteVote">
+            <p>Votre vote:<strong> ${sessionScope.vote.nom}</strong> </p>
+            <input name="nomVote" id="nomVote" type="hidden" value="${sessionScope.vote.nom}">
             <p>
                 <input type="submit" name="action" value="supprimer">
             </p>
         </form>
-        
+        </c:if>
+
+        <c:if test="${empty sessionScope.vote || sessionScope.vote == null}">
+            <p class="header-user"> Vous n'avez votez pour personne!</p>
+            <p>
+                <a href="vote.jsp" class="button">Allez VOTER!</a>
+            </p>
+        </c:if>
+
     </article>
 </main>
 </body>
