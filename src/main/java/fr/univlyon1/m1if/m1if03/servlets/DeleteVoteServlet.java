@@ -1,3 +1,5 @@
+package fr.univlyon1.m1if.m1if03.servlets;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
