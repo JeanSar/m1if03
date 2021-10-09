@@ -7,18 +7,11 @@ import java.io.*;
 @WebServlet(name = "DeleteVote", value = "/deleteVote")
 public class DeleteVoteServlet extends HttpServlet {
 
-   private String message, url;
-
    public void init() throws ServletException {
       // Do required initialization
    }
 
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      /*
-       * Set response content type response.setContentType("text/html"); // Actual
-       * logic goes here. PrintWriter out = response.getWriter(); out.println("<h1>" +
-       * + "</h1>");
-       */
 
       if (request.getParameter("nomVote") != null) {
          HttpSession session = request.getSession(true);

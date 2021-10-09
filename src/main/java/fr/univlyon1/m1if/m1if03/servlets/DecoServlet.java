@@ -4,7 +4,7 @@ import javax.servlet.annotation.WebServlet;
 
 import java.io.*;  
 
-@WebServlet(name = "Deco", value = "/deco")
+@WebServlet(name = "Deco", value = "/Deco")
 public class DecoServlet extends HttpServlet {
  
     private String message;

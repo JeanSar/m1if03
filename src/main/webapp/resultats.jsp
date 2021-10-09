@@ -42,7 +42,7 @@
         <%
             Map<String, Integer> votes = new HashMap<>();
             for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
-                votes.put(nomCandidat, 0);
+                votes.put(nomCandidat, 1);
             }
 
         %>

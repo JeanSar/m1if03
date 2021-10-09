@@ -23,7 +23,7 @@ import java.util.Map;
 @WebServlet(name = "Init", value = "/init")
 public class Init extends HttpServlet {
     Map<String, Candidat> candidats = null;
-    final Map<String, Ballot> ballots = new HashMap<>();
+    final Map<String, Ballot>   ballots = new HashMap<>();
     final List<Bulletin> bulletins = new ArrayList<>();
 
     @Override
