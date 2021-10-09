@@ -9,9 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
-<%@ page import="java.util.List" %>
 
 <c:if test="${empty sessionScope.user}">
     <c:redirect url="index.html"/>
@@ -23,19 +21,13 @@
 </head>
 <body>
 <header>
-    <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
-    <h1 class="header-titre">Voter pour qui vous voulez</h1>
+    <jsp:include page="WEB-INF/components/header.jsp">
+        <jsp:param name="title" value="Voter pour qui vous voulez"/>
+    </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
-    <aside class="menu">
-        <h2>Menu</h2>
-        <ul>
-            <li><a href="vote.jsp">Voter</a></li>
-            <li><a href="ballot.jsp">Votre vote</a></li>
-            <li><a href="resultats.jsp">Résultats</a></li>
-            <li><a href="deco">Déconnexion</a></li>
-        </ul>
-    </aside>
+
+    <jsp:include page="WEB-INF/components/menu.jsp" />
     <article class="contenu">
 
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>

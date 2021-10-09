@@ -21,25 +21,14 @@
 </head>
 <body>
 <header>
-    <c:if test="${!empty sessionScope.user}">
-        <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
-    </c:if>
-    <h1 class="header-titre">Résultats actuels de l'élection</h1>
+    <jsp:include page="WEB-INF/components/header.jsp">
+        <jsp:param name="title" value="Résultats actuels de l'élection"/>
+    </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
-    <aside class="menu">
-        <h2>Menu</h2>
-        <ul>
-            <c:if test="${!empty sessionScope.user}">
-                <li><a href="vote.jsp">Voter</a></li>
-                <li><a href="ballot.jsp">Votre vote</a></li>
-            </c:if>
-            <li><a href="resultats.jsp">Résultats</a></li>
-            <c:if test="${!empty sessionScope.user}">
-                <li><a href="deco">Déconnexion</a></li>
-            </c:if>
-        </ul>
-    </aside>
+
+    <jsp:include page="WEB-INF/components/menu.jsp" />
+
     <article class="contenu">
         <h2>Voici le résultat courant de l'élection</h2>
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
