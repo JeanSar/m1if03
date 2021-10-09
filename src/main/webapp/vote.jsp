@@ -12,6 +12,10 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
+
+<c:if test="${empty sessionScope.user}">
+    <c:redirect url="index.html"/>
+</c:if>
 <html>
 <head>
     <title>Vote</title>
@@ -19,9 +23,7 @@
 </head>
 <body>
 <header>
-    <c:if test="${sessionScope.user != null}">
-        <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
-    </c:if>
+    <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
     <h1 class="header-titre">Voter pour qui vous voulez</h1>
 </header>
 <main id="contenu" class="wrapper">

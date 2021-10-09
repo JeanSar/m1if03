@@ -12,6 +12,9 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
+<c:if test="${empty sessionScope.user}">
+    <c:redirect url="index.html"/>
+</c:if>
 <html>
 <head>
     <title>Vote</title>
@@ -31,7 +34,7 @@
             <li><a href="vote.jsp">Voter</a></li>
             <li><a href="ballot.jsp">Votre vote</a></li>
             <li><a href="resultats.jsp">Résultats</a></li>
-            <li><a href="Deco">Déconnexion</a></li>
+            <li><a href="deco">Déconnexion</a></li>
         </ul>
     </aside>
     <article class="contenu">
