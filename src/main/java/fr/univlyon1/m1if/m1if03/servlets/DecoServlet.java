@@ -1,7 +1,5 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
-import fr.univlyon1.m1if.m1if03.utils.CandidatListGenerator;
-
 import javax.servlet.http.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +19,7 @@ public class DecoServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
        throws IOException {
         try {
-            HttpSession session = request.getSession(false); //on récupère la session sans la créer
+            HttpSession session = request.getSession(true); //on récupère la session
             session.invalidate();
             response.sendRedirect("index.html");
         } catch (IOException e) {
