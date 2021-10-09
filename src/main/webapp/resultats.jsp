@@ -30,10 +30,14 @@
     <aside class="menu">
         <h2>Menu</h2>
         <ul>
-            <li><a href="vote.jsp">Voter</a></li>
-            <li><a href="ballot.jsp">Votre vote</a></li>
+            <c:if test="${!empty sessionScope.user}">
+                <li><a href="vote.jsp">Voter</a></li>
+                <li><a href="ballot.jsp">Votre vote</a></li>
+            </c:if>
             <li><a href="resultats.jsp">Résultats</a></li>
-            <li><a href="deco">Déconnexion</a></li>
+            <c:if test="${!empty sessionScope.user}">
+                <li><a href="deco">Déconnexion</a></li>
+            </c:if>
         </ul>
     </aside>
     <article class="contenu">
