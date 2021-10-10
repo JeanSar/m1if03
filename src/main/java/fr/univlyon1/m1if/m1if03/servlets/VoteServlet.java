@@ -1,3 +1,5 @@
+package fr.univlyon1.m1if.m1if03.servlets;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -31,11 +33,11 @@ public class VoteServlet extends HttpServlet {
 
       String[] str = request.getParameter("candidats").split(" ");
 
-      Candidat candidat = new Candidat( 
-         request.getParameter("candidats") != null ? str[0] : "", 
-         request.getParameter("candidats") != null ? str[1] : ""); 
-     
-      Bulletin bulletin = new Bulletin(candidat); 
+      Candidat candidat = new Candidat(
+         request.getParameter("candidats") != null ? str[0] : "",
+         request.getParameter("candidats") != null ? str[1] : "");
+
+      Bulletin bulletin = new Bulletin(candidat);
       Ballot ballot = new Ballot(bulletin);
 
       ServletContext context = request.getServletContext();
@@ -43,7 +45,7 @@ public class VoteServlet extends HttpServlet {
       context.setAttribute("bulletins", bulletin);
 
       request.getRequestDispatcher("ballot.jsp").forward(request, response);
-       
+
    }
 
    @Override

@@ -12,28 +12,25 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page import="java.util.List" %>
+<%@ page errorPage="WEB-INF/error.jsp" %>
+
+<c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
+    <% response.sendError(403);%>
+</c:if>
 <html>
 <head>
-    <title>Vote</title>
+    <title>Ballot</title>
     <link rel="stylesheet" type="text/css" href="vote.css">
 </head>
 <body>
 <header>
-    <c:if test="${sessionScope.user != null}">
-        <p class="header-user"> Bonjour ${sessionScope.user.nom}</p>
-    </c:if>
-    <h1 class="header-titre">Voter pour qui vous voulez</h1>
+    <jsp:include page="WEB-INF/components/header.jsp">
+        <jsp:param name="title" value="Voter pour qui vous voulez"/>
+    </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
-    <aside class="menu">
-        <h2>Menu</h2>
-        <ul>
-            <li><a href="vote.jsp">Voter</a></li>
-            <li><a href="ballot.jsp">Votre vote</a></li>
-            <li><a href="resultats.jsp">Résultats</a></li>
-            <li><a href="Deco">Déconnexion</a></li>
-        </ul>
-    </aside>
+
+    <jsp:include page="WEB-INF/components/menu.jsp" />
     <article class="contenu">
 
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
