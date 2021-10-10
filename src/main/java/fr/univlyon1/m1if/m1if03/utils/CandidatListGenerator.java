@@ -26,6 +26,7 @@ public class CandidatListGenerator {
         for (Item i : items) {
             resultat.put(i.getNom(), new Candidat(i.getPrenom(), i.getNom()));
         }
+        resultat.put("Blanc", new Candidat("", "Blanc") );
         return resultat;
     }
 
