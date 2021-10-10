@@ -12,7 +12,7 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 
 <c:if test="${empty sessionScope.user}">
-    <c:redirect url="index.html"/>
+    <%@page errorPage="WEB-INF/error.jsp" %>
 </c:if>
 <html>
 <head>

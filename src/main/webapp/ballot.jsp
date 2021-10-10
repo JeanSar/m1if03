@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${empty sessionScope.user}">
-    <c:redirect url="index.html"/>
+    <%@page errorPage="WEB-INF/error.jsp" %>
 </c:if>
 <html>
 <head>
