@@ -34,15 +34,17 @@
         <h2>Voici le résultat courant de l'élection</h2>
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <%
-            List<Bulletin> lesBulletins = new ArrayList<>((List<Bulletin>) application.getAttribute("bulletins"));
+
             Map<String, Integer> votes = new HashMap<>();
             for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
                 votes.put(nomCandidat, 0);
             }
-
-            for (Bulletin b : lesBulletins) {
-                int score = votes.get(b.getCandidat().getNom());
-                votes.put(b.getCandidat().getNom(), ++score);
+            if(application.getAttribute("bulletins") != null) {
+                List<Bulletin> lesBulletins = new ArrayList<>((List<Bulletin>) application.getAttribute("bulletins"));
+                for (Bulletin b : lesBulletins) {
+                    int score = votes.get(b.getCandidat().getNom());
+                    votes.put(b.getCandidat().getNom(), ++score);
+                }
             }
         %>
 

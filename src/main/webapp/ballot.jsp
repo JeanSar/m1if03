@@ -39,7 +39,7 @@
                 </p>
             </form>
         </c:if>
-        <c:if test="${empty applicationScope['ballot'] || applicationScope['ballot'] == null}">
+        <c:if test="${empty applicationScope['ballot']}">
             <p class="header-user"> Vous n'avez votez pour personne!</p>
             <p>
                 <a href="vote.jsp" class="button">Allez VOTER!</a>
