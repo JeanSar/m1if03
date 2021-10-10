@@ -42,7 +42,7 @@
 
             for (Bulletin b : lesBulletins) {
                 int score = votes.get(b.getCandidat().getNom());
-                votes.put(b.getCandidat().getNom(), score++);
+                votes.put(b.getCandidat().getNom(), ++score);
             }
         %>
 

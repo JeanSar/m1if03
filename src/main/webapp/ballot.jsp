@@ -30,16 +30,16 @@
 
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <h2>Votre preuve de vote</h2>
-        <c:if test="${!empty applicationScope['ballots'] }">
+        <c:if test="${!empty applicationScope['ballot'] }">
             <form method="post" action="deleteVote">
-                <p class="header-user"> Votre vote:<strong> ${applicationScope['ballots'].getBulletin().getCandidat().getNom()} ${applicationScope['ballots'].getBulletin().getCandidat().getPrenom() }</strong></p>
+                <p class="header-user"> Votre vote:<strong> ${applicationScope['ballot'].getBulletin().getCandidat().getNom()} ${applicationScope['ballot'].getBulletin().getCandidat().getPrenom() }</strong></p>
                 <input name="nomVote" id="nomVote" type="hidden">
                 <p>
                     <input type="submit" name="action" value="supprimer">
                 </p>
             </form>
         </c:if>
-        <c:if test="${empty applicationScope['ballots'] || applicationScope['ballots'] == null}">
+        <c:if test="${empty applicationScope['ballot'] || applicationScope['ballot'] == null}">
             <p class="header-user"> Vous n'avez votez pour personne!</p>
             <p>
                 <a href="vote.jsp" class="button">Allez VOTER!</a>

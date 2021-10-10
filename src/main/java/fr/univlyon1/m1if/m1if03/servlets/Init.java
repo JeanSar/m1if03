@@ -30,7 +30,7 @@ public class Init extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         // Cette instruction doit toujours être au début de la méthode init() pour pouvoir accéder à l'objet config.
         super.init(config);
-        ServletContext context = config.getServletContext();
+        ServletContext context = getServletContext();
         context.setAttribute("ballots", ballots);
         context.setAttribute("bulletins", bulletins);
 
@@ -68,6 +68,8 @@ public class Init extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
+            request.getServletContext().setAttribute("ballots", ballots);
+            request.getServletContext().setAttribute("bulletins", bulletins);
             if (candidats == null) {
                 candidats = CandidatListGenerator.getCandidatList();
                 request.getServletContext().setAttribute("candidats", candidats);
