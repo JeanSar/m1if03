@@ -41,12 +41,14 @@
         %>
         <form method="post" action="vote">
             Sélectionnez un candidat :
-            <select name="candidats" id="candidats">
-                <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
-                    <option id="candidats" value="${nomCandidat.getPrenom()} ${nomCandidat.getNom()}"><c:out value="${nomCandidat.getPrenom()}"/></option>
-                </c:forEach>
-               
-            </select>
+            <label>
+                <select name="candidats">
+                    <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
+                        <option id="candidats" value="${nomCandidat.getPrenom()} ${nomCandidat.getNom()}"><c:out value="${nomCandidat.getPrenom()}"/></option>
+                    </c:forEach>
+
+                </select>
+            </label>
             <p>
                 <input type="submit" name="action" value="Envoyer votre vote">
             </p>

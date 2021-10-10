@@ -6,7 +6,7 @@ import javax.servlet.annotation.WebServlet;
 
 import java.io.*;  
 
-@WebServlet(name = "Deco", value = "/Deco")
+@WebServlet(name = "Deco", value = "/deco")
 public class DecoServlet extends HttpServlet {
 
  
