@@ -7,13 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page errorPage="WEB-INF/error.jsp" %>
 
-<c:if test="${empty sessionScope.user}">
-    <%@page errorPage="WEB-INF/error.jsp" %>
+<c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
+    <% response.sendError(403);%>
 </c:if>
 <html>
 <head>
-    <title>Vote</title>
+    <title>Ballot</title>
     <link rel="stylesheet" type="text/css" href="vote.css">
 </head>
 <body>
@@ -39,7 +40,7 @@
         </form>
         </c:if>
 
-        <c:if test="${empty sessionScope.vote || sessionScope.vote == null}">
+        <c:if test="${empty sessionScope.vote}">
             <p class="header-user"> Vous n'avez votez pour personne!</p>
             <p>
                 <a href="vote.jsp" class="button">Allez VOTER!</a>

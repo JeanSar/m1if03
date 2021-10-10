@@ -10,9 +10,10 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
+<%@ page errorPage="WEB-INF/error.jsp" %>
 
-<c:if test="${empty sessionScope.user}">
-    <%@page errorPage="WEB-INF/error.jsp" %>
+<c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
+    <% response.sendError(403);%>
 </c:if>
 <html>
 <head>
