@@ -14,8 +14,10 @@ public class DeleteVoteServlet extends HttpServlet {
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       if (request.getParameter("nomVote") != null) {
-         HttpSession session = request.getSession(true);
-         session.setAttribute("vote", "");
+         ServletContext context = request.getServletContext();
+         context.setAttribute("ballots", "");
+         context.setAttribute("bulletins", "");
+
          request.getRequestDispatcher("ballot.jsp").forward(request, response);
       } else {
          response.sendRedirect("ballot.jsp");

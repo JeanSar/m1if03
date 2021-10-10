@@ -6,6 +6,7 @@ import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.Candidat;
 import fr.univlyon1.m1if.m1if03.classes.User;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,10 +29,12 @@ public class VoteServlet extends HttpServlet {
 
       // Actual logic goes here.
 
+      String[] str = request.getParameter("candidats").split(" ");
+
       Candidat candidat = new Candidat( 
-         request.getParameter("candidats") != null ? request.getParameter("candidats") : "", 
-         request.getParameter("candidats") != null ? request.getParameter("candidats") : ""); 
-      
+         request.getParameter("candidats") != null ? str[0] : "", 
+         request.getParameter("candidats") != null ? str[1] : ""); 
+     
       Bulletin bulletin = new Bulletin(candidat); 
       Ballot ballot = new Ballot(bulletin);
 
@@ -39,11 +42,8 @@ public class VoteServlet extends HttpServlet {
       context.setAttribute("ballots", ballot);
       context.setAttribute("bulletins", bulletin);
 
-      //il faut enlever ca !! a remplacer par celui du haut 
-      HttpSession session = request.getSession(true);
-      session.setAttribute("vote", candidat);
-
       request.getRequestDispatcher("ballot.jsp").forward(request, response);
+       
    }
 
    @Override

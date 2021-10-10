@@ -39,17 +39,16 @@
         <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <h2>Voter pour qui vous voulez</h2>
         <%
-            Map<String, Integer> votes = new HashMap<>();
-            for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
-                votes.put(nomCandidat, 0);
+            Map<Candidat, Integer> votes = new HashMap<>();
+            for (Candidat leCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).values()) {
+                votes.put(leCandidat, 0);
             }
-
         %>
         <form method="post" action="vote">
             Sélectionnez un candidat :
             <select name="candidats" id="candidats">
                 <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
-                    <option id="candidats" value="${nomCandidat}"><c:out value="${nomCandidat}"/></option>
+                    <option id="candidats" value="${nomCandidat.getPrenom()} ${nomCandidat.getNom()}"><c:out value="${nomCandidat.getPrenom()}"/></option>
                 </c:forEach>
                
             </select>
