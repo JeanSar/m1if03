@@ -29,31 +29,40 @@
 <main id="contenu" class="wrapper">
 
     <jsp:include page="WEB-INF/components/menu.jsp" />
+
     <article class="contenu">
+    <c:choose>
+        <c:when test="${empty applicationScope['ballot'] }">
+            <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
+            <h2>Voter pour qui vous voulez</h2>
+            <%
+                Map<Candidat, Integer> votes = new HashMap<>();
+                for (Candidat leCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).values()) {
+                    votes.put(leCandidat, 0);
+                }
+            %>
+            <form method="post" action="vote">
+                Sélectionnez un candidat :
+                <label>
+                    <select name="candidats">
+                        <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
+                            <option id="candidats" value="${nomCandidat.getPrenom()} ${nomCandidat.getNom()}"><c:out value="${nomCandidat.getPrenom()}"/></option>
+                        </c:forEach>
 
-        <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
-        <h2>Voter pour qui vous voulez</h2>
-        <%
-            Map<Candidat, Integer> votes = new HashMap<>();
-            for (Candidat leCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).values()) {
-                votes.put(leCandidat, 0);
-            }
-        %>
-        <form method="post" action="vote">
-            Sélectionnez un candidat :
-            <label>
-                <select name="candidats">
-                    <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
-                        <option id="candidats" value="${nomCandidat.getPrenom()} ${nomCandidat.getNom()}"><c:out value="${nomCandidat.getPrenom()}"/></option>
-                    </c:forEach>
-
-                </select>
-            </label>
+                    </select>
+                </label>
+                <p>
+                    <input type="submit" name="action" value="Envoyer votre vote">
+                </p>
+            </form>
+        </c:when>
+        <c:otherwise>
+            <p class="header-user"> Vous avez déjà voté !!</p>
             <p>
-                <input type="submit" name="action" value="Envoyer votre vote">
+                <a href="ballot.jsp" class="button">Voir mon vote</a>
             </p>
-        </form>
-        
+        </c:otherwise>
+    </c:choose>
     </article>
 </main>
 </body>

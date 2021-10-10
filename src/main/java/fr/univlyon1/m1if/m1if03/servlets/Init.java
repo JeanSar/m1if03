@@ -54,6 +54,16 @@ public class Init extends HttpServlet {
             if (login != null && !login.equals("")) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", new User(login, request.getParameter("nom") != null ? request.getParameter("nom") : ""));
+
+                Map<String, Ballot>  ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
+                //on test si l'utilisateur à déjà voté
+                if(ballots.containsKey(login)) {
+                    request.getServletContext().setAttribute("ballot", ballots.get(login));
+                    request.getServletContext().setAttribute("bulletin", ballots.get(login).getBulletin());
+                } else {
+                    request.getServletContext().setAttribute("ballot", "");
+                    request.getServletContext().setAttribute("bulletin", "");
+                }
                 request.getRequestDispatcher("vote.jsp").forward(request, response);
             } else {
                 response.sendRedirect("index.html");

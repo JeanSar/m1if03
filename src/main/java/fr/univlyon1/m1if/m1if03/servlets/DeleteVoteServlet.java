@@ -2,6 +2,7 @@ package fr.univlyon1.m1if.m1if03.servlets;
 
 import fr.univlyon1.m1if.m1if03.classes.Ballot;
 import fr.univlyon1.m1if.m1if03.classes.Bulletin;
+import fr.univlyon1.m1if.m1if03.classes.User;
 
 import javax.servlet.http.*;
 import javax.servlet.*;
@@ -32,7 +33,8 @@ public class DeleteVoteServlet extends HttpServlet {
       bulletins.remove(b);
       getServletContext().setAttribute("bulletins", bulletins);
 
-      ballots.remove(b.getCandidat().getNom());
+      User current = (User)request.getSession().getAttribute("user");
+      ballots.remove(current.getLogin());
       getServletContext().setAttribute("ballots", ballots);
 
       requestContext.setAttribute("ballot", "");

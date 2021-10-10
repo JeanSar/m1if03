@@ -3,6 +3,7 @@ package fr.univlyon1.m1if.m1if03.servlets;
 import fr.univlyon1.m1if.m1if03.classes.Ballot;
 import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.Candidat;
+import fr.univlyon1.m1if.m1if03.classes.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -45,11 +46,17 @@ public class VoteServlet extends HttpServlet {
       requestContext.setAttribute("bulletin", bulletin);
 
       //on met a jour le contexte des servlets i.e. du serveur
-      List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
+
       Map<String, Ballot>  ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
-      bulletins.add(bulletin);
-      getServletContext().setAttribute("bulletins", bulletins);
-      ballots.put(request.getParameter("candidats"), ballot);
+
+      User current = (User)request.getSession().getAttribute("user");
+
+      if(!ballots.containsKey(current.getLogin())) {  //cannot add if already exists
+         List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
+         ballots.put(current.getLogin(), ballot);
+         bulletins.add(bulletin);
+         getServletContext().setAttribute("bulletins", bulletins);
+      }
       getServletContext().setAttribute("ballots", ballots);
 
       //on renvoie la réponse
