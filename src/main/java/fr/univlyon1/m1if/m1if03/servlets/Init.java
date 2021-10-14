@@ -33,6 +33,16 @@ public class Init extends HttpServlet {
         ServletContext context = config.getServletContext();
         context.setAttribute("ballots", ballots);
         context.setAttribute("bulletins", bulletins);
+        try {
+            if (candidats == null) {
+                candidats = CandidatListGenerator.getCandidatList();
+                context.setAttribute("candidats", candidats);
+            }
+        }   catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+            System.out.println("Applicants list not generated");
+        }
     }
 
     @Override
@@ -41,17 +51,14 @@ public class Init extends HttpServlet {
         // car en cas d'erreur de chargement, il faut pouvoir renvoyer une erreur HTTP.
         // Fait dans un bloc try/catch pour le cas où la liste des candidats ne s'est pas construite correctement.
         try {
-
-            if (candidats == null) {
-                candidats = CandidatListGenerator.getCandidatList();
-                getServletContext().setAttribute("candidats", candidats);
-                request.getServletContext().setAttribute("candidats", candidats);
-            }
             // Gestion de la session utilisateur
             String login = request.getParameter("login");
             if (login != null && !login.equals("")) {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("user", new User(login, request.getParameter("nom") != null ? request.getParameter("nom") : ""));
+                session.setAttribute("user", new User(login,
+                        request.getParameter("nom") != null ? request.getParameter("nom") : "",
+                        request.getParameter("admin") != null && request.getParameter("admin").equals("on")));
+                request.getRequestDispatcher("vote.jsp").forward(request, response);
 
                 Map<String, Ballot>  ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
                 //on test si l'utilisateur à déjà voté
