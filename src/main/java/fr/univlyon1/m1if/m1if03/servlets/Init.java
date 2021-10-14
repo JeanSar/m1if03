@@ -50,34 +50,7 @@ public class Init extends HttpServlet {
         // On intercepte le premier appel à Init pour mettre en place la liste des candidats,
         // car en cas d'erreur de chargement, il faut pouvoir renvoyer une erreur HTTP.
         // Fait dans un bloc try/catch pour le cas où la liste des candidats ne s'est pas construite correctement.
-        try {
-            // Gestion de la session utilisateur
-            String login = request.getParameter("login");
-            if (login != null && !login.equals("")) {
-                HttpSession session = request.getSession(true);
-                session.setAttribute("user", new User(login,
-                        request.getParameter("nom") != null ? request.getParameter("nom") : "",
-                        request.getParameter("admin") != null && request.getParameter("admin").equals("on")));
-                request.getRequestDispatcher("vote.jsp").forward(request, response);
 
-                Map<String, Ballot>  ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
-                //on test si l'utilisateur à déjà voté
-                if(ballots.containsKey(login)) {
-                    request.getServletContext().setAttribute("ballot", ballots.get(login));
-                    request.getServletContext().setAttribute("bulletin", ballots.get(login).getBulletin());
-                } else {
-                    request.getServletContext().setAttribute("ballot", "");
-                    request.getServletContext().setAttribute("bulletin", "");
-                }
-                request.getRequestDispatcher("vote.jsp").forward(request, response);
-            } else {
-                response.sendRedirect("index.html");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        }
     }
 
     @Override
