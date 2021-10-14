@@ -18,6 +18,6 @@
             <li><a href="deco">Déconnexion</a></li>
         </c:if>
         <br>
-        <li><a href="resultats.jsp">Résultats</a></li>
+        <li><a href="resultats">Résultats</a></li>
     </ul>
 </aside>

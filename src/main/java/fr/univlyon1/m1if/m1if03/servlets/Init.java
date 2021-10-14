@@ -33,7 +33,6 @@ public class Init extends HttpServlet {
         ServletContext context = getServletContext();
         context.setAttribute("ballots", ballots);
         context.setAttribute("bulletins", bulletins);
-
     }
 
     @Override
@@ -42,13 +41,12 @@ public class Init extends HttpServlet {
         // car en cas d'erreur de chargement, il faut pouvoir renvoyer une erreur HTTP.
         // Fait dans un bloc try/catch pour le cas où la liste des candidats ne s'est pas construite correctement.
         try {
-            //NOTE POUR LE MVC :
-            // On pourra créer la liste en init (dans un try/catch) et faire ici un assert(candidats != null);
+
             if (candidats == null) {
                 candidats = CandidatListGenerator.getCandidatList();
+                getServletContext().setAttribute("candidats", candidats);
                 request.getServletContext().setAttribute("candidats", candidats);
             }
-
             // Gestion de la session utilisateur
             String login = request.getParameter("login");
             if (login != null && !login.equals("")) {
@@ -78,13 +76,7 @@ public class Init extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            request.getServletContext().setAttribute("ballots", ballots);
-            request.getServletContext().setAttribute("bulletins", bulletins);
-            if (candidats == null) {
-                candidats = CandidatListGenerator.getCandidatList();
-                request.getServletContext().setAttribute("candidats", candidats);
-            }
-            response.sendRedirect("resultats.jsp");
+            response.sendRedirect("index.html");
         } catch (IOException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
