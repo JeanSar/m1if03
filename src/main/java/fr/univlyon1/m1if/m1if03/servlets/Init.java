@@ -3,7 +3,6 @@ package fr.univlyon1.m1if.m1if03.servlets;
 import fr.univlyon1.m1if.m1if03.classes.Ballot;
 import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.Candidat;
-import fr.univlyon1.m1if.m1if03.classes.User;
 import fr.univlyon1.m1if.m1if03.utils.CandidatListGenerator;
 
 import javax.servlet.ServletConfig;
@@ -13,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Init", value = "/init")
+@WebServlet(name = "Init", value = "/init", loadOnStartup = 1)
 public class Init extends HttpServlet {
     Map<String, Candidat> candidats = null;
     final Map<String, Ballot>   ballots = new HashMap<>();
@@ -38,15 +36,16 @@ public class Init extends HttpServlet {
                 candidats = CandidatListGenerator.getCandidatList();
                 context.setAttribute("candidats", candidats);
             }
+            System.out.println("Init servlet launched");
         }   catch (IOException e) {
             e.printStackTrace();
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
             System.out.println("Applicants list not generated");
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         // On intercepte le premier appel à Init pour mettre en place la liste des candidats,
         // car en cas d'erreur de chargement, il faut pouvoir renvoyer une erreur HTTP.
         // Fait dans un bloc try/catch pour le cas où la liste des candidats ne s'est pas construite correctement.
@@ -55,12 +54,6 @@ public class Init extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            response.sendRedirect("index.html");
-        } catch (IOException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
-        }
+        response.sendRedirect("index.html");
     }
 }
