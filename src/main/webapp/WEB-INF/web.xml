@@ -8,6 +8,7 @@
     version="3.0">
     <display-name>Vote App</display-name>
     <error-page>
+        <error-code>403</error-code>
         <location>/WEB-INF/error.jsp</location>
     </error-page>
 </web-app>
