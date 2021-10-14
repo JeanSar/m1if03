@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Map;
 <%--
   Created by IntelliJ IDEA.
   User: Lionel
@@ -7,12 +9,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.HashMap" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Bulletin" %>
-<%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 
 
 <html>
@@ -32,25 +28,11 @@
 
     <article class="contenu">
         <h2>Voici le résultat courant de l'élection</h2>
-        <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
-        <%
-
-            Map<String, Integer> votes = new HashMap<>();
-            for (String nomCandidat : ((Map<String, Candidat>) application.getAttribute("candidats")).keySet()) {
-                votes.put(nomCandidat, 0);
-            }
-            if(application.getAttribute("bulletins") != null) {
-                List<Bulletin> lesBulletins = new ArrayList<>((List<Bulletin>) application.getAttribute("bulletins"));
-                for (Bulletin b : lesBulletins) {
-                    int score = votes.get(b.getCandidat().getNom());
-                    votes.put(b.getCandidat().getNom(), ++score);
-                }
-            }
-        %>
+        <jsp:useBean id="votes" scope="request" class="java.util.HashMap"/>
 
         <ul>
             <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
-                <li><c:out value="${nomCandidat}"/> : <%= votes.get((String)pageContext.getAttribute("nomCandidat")) %> vote(s)</li>
+                <li><c:out value="${nomCandidat}"/> : <%= votes.get(pageContext.getAttribute("nomCandidat")) %> vote(s)</li>
             </c:forEach>
         </ul>
     </article>
