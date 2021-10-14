@@ -14,6 +14,7 @@
         <c:if test="${!empty sessionScope.user}">
             <li><a href="vote.jsp">Voter</a></li>
             <li><a href="ballot.jsp">Votre vote</a></li>
+            <li><a href="settings.jsp">Paramètres</a></li>
             <li><a href="deco">Déconnexion</a></li>
         </c:if>
         <br>
