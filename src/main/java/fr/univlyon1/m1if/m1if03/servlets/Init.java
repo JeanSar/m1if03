@@ -30,7 +30,7 @@ public class Init extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         // Cette instruction doit toujours être au début de la méthode init() pour pouvoir accéder à l'objet config.
         super.init(config);
-        ServletContext context = getServletContext();
+        ServletContext context = config.getServletContext();
         context.setAttribute("ballots", ballots);
         context.setAttribute("bulletins", bulletins);
     }
