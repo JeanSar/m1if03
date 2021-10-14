@@ -33,10 +33,8 @@ public class SettingsServlet extends HttpServlet {
       if (nom != null && !nom.equals("")) {
          User current = (User)request.getSession().getAttribute("user");
          current.setNom((nom));
-         request.getRequestDispatcher("settings.jsp").forward(request, response);
-      } else {
-         response.sendRedirect("index.html");
       }
+      request.getRequestDispatcher("settings.jsp").forward(request, response);
    }
 
    @Override

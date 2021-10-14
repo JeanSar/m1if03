@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Init", value = "/init", loadOnStartup = 1)
+@WebServlet(name = "Init", value = "/init")
 public class Init extends HttpServlet {
     Map<String, Candidat> candidats = null;
     final Map<String, Ballot>   ballots = new HashMap<>();
@@ -53,10 +53,7 @@ public class Init extends HttpServlet {
             String login = request.getParameter("login");
             if (login != null && !login.equals("")) {
                 HttpSession session = request.getSession(true);
-                session.setAttribute("user", new User(login,
-                        request.getParameter("nom") != null ? request.getParameter("nom") : "",
-                        request.getParameter("admin") != null && request.getParameter("admin").equals("on")));
-                request.getRequestDispatcher("vote.jsp").forward(request, response);
+                session.setAttribute("user", new User(login, request.getParameter("nom") != null ? request.getParameter("nom") : ""));
 
                 Map<String, Ballot>  ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
                 //on test si l'utilisateur à déjà voté
