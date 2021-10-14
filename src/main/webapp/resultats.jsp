@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 <%--
   Created by IntelliJ IDEA.
   User: Lionel
@@ -9,8 +7,7 @@ import java.util.Map;
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+<jsp:useBean id="bulletins" type="java.util.List" beanName="bulletins" scope="application"/>
 <html>
 <head>
     <title>Vote</title>
@@ -25,11 +22,9 @@ import java.util.Map;
 <main id="contenu" class="wrapper">
 
     <jsp:include page="WEB-INF/components/menu.jsp" />
-
     <article class="contenu">
         <h2>Voici le résultat courant de l'élection</h2>
         <jsp:useBean id="votes" scope="request" class="java.util.HashMap"/>
-
         <ul>
             <c:forEach items="<%= votes.keySet()%>" var="nomCandidat">
                 <li><c:out value="${nomCandidat}"/> : <%= votes.get(pageContext.getAttribute("nomCandidat")) %> vote(s)</li>
