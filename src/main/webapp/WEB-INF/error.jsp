@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Error <%= response.getStatus()%></title>H
+        <title>Error <%= response.getStatus()%></title>
     </head>
     <body>
         Error <%= response.getStatus()%> : Cannot access !!

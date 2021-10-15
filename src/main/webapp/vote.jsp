@@ -32,7 +32,7 @@
 
     <article class="contenu">
     <c:choose>
-        <c:when test="${empty applicationScope['ballot'] }">
+        <c:when test="${empty sessionScope.ballot }">
             <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
             <h2>Voter pour qui vous voulez</h2>
             <%

@@ -20,25 +20,22 @@ public class DeleteVoteServlet extends HttpServlet {
    }
 
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      ServletContext requestContext = request.getServletContext();
-
-
-
+      HttpSession session = request.getSession(false);
+      User current = (User)session.getAttribute("user");
 
       //on met a jour le contexte des servlets i.e. du serveur
       List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
       Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
 
-      Bulletin b = (Bulletin) requestContext.getAttribute("bulletin");
+      Bulletin b = (Bulletin) session.getAttribute("bulletin");
       bulletins.remove(b);
       getServletContext().setAttribute("bulletins", bulletins);
 
-      User current = (User)request.getSession().getAttribute("user");
       ballots.remove(current.getLogin());
       getServletContext().setAttribute("ballots", ballots);
 
-      requestContext.setAttribute("ballot", "");
-      requestContext.setAttribute("bulletin", "");
+      session.removeAttribute("ballot");
+      session.removeAttribute("bulletin");
 
       request.getRequestDispatcher("ballot.jsp").forward(request, response);
 
