@@ -59,7 +59,11 @@ public class VoteServlet extends HttpServlet {
       }
 
       //on renvoie la réponse
-      request.getRequestDispatcher("ballot.jsp").forward(request, response);
+      if (current.isAdmin() == true){
+         request.getRequestDispatcher("listBallots.jsp").forward(request, response);
+      } else {
+         request.getRequestDispatcher("ballot.jsp").forward(request, response);
+      }
 
    }
 
