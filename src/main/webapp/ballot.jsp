@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--@ page errorPage="WEB-INF/error.jsp" --%>
+<%@ page errorPage="WEB-INF/error.jsp" %>
 
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>

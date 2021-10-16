@@ -30,6 +30,11 @@ public class DeleteVoteServlet extends HttpServlet {
 
         //removing the bulletin/ballot in model and updating it
         Ballot ballotToRm = ballots.get(login);
+        if(ballotToRm == null){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            request.getRequestDispatcher("ballot.jsp").forward(request, response);
+            return;
+        }
         bulletins.remove(ballotToRm.getBulletin());
         ballots.remove(login);
         getServletContext().setAttribute("bulletins", bulletins);
