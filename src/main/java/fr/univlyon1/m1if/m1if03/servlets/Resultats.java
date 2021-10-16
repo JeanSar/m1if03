@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Resultats", value = "/resultats")
+@WebServlet(name = "Resultats", urlPatterns = "/resultats")
 public class Resultats extends HttpServlet {
     ServletContext context;
     public void init(ServletConfig config) throws ServletException {

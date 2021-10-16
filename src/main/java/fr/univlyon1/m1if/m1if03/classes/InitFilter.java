@@ -37,23 +37,25 @@ public class InitFilter extends HttpFilter {
         String path = request.getRequestURI().substring(request.getContextPath().length());
         String referer = request.getHeader("Referer");
 
-        System.out.println("\nPath : " + path);
-        System.out.println(request.getContextPath());
-        System.out.println(request.getRequestURI());
-        System.out.println(referer); //referer is the requesting entity client side path
         HttpSession session = request.getSession(false);
 
         // check if the path must be filtered
         boolean isCaught = true;
         for(String p : uncaught) {
-            if(p.endsWith(path)) {
+            if(path.endsWith(p)) {
                 isCaught = false;
+                System.out.println("UNCAUGHT");
                 break;
             }
         }
 
         if(isCaught) {
             if((session == null) || (session.getAttribute("user") == null)) {
+
+                System.out.println("\nPath(Filter) : " + path);
+                System.out.println(request.getContextPath());
+                System.out.println(referer); //referer is the requesting entity client side path
+
                 String login = request.getParameter("login");
                 if (login != null) {
                     if (login.equals("")){

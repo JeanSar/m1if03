@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Vote</title>
-    <link rel="stylesheet" type="text/css" href="vote.css">
+    <link rel="stylesheet" type="text/css" href="/server/vote.css">
 </head>
 <body>
 <header>

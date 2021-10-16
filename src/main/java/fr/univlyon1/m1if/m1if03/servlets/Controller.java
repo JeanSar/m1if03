@@ -1,6 +1,5 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
+@WebServlet(name = "Controller", urlPatterns = {"/election/*"})
 public class Controller extends HttpServlet {
 
     @Override
@@ -21,9 +20,8 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("\nPath1 : " + path);
+        System.out.println("\nPath(controller) : " + path);
         System.out.println(request.getContextPath());
-        System.out.println(request.getRequestURI());
         System.out.println(request.getHeader("Referer"));
 
         request.getRequestDispatcher("/resultats").include(request, response);
