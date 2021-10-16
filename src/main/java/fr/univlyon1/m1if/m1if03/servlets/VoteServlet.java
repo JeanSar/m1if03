@@ -35,10 +35,6 @@ public class VoteServlet extends HttpServlet {
          request.getParameter("candidats") != null ? str[0] : "", //nom
          request.getParameter("candidats") != null ? str[1] : ""); //prenom
 
-      Bulletin bulletin = new Bulletin(candidat); // on instancie le bulletin de vote
-      session.setAttribute("bulletin", bulletin);
-      session.setAttribute("ballot", new Ballot(bulletin));
-
 
       //on met a jour le contexte des servlets i.e. du serveur
 
@@ -47,12 +43,20 @@ public class VoteServlet extends HttpServlet {
       User current = (User)request.getSession().getAttribute("user");
 
       if(!ballots.containsKey(current.getLogin())) {  //cannot add if already exists
+
+         Bulletin bulletin = new Bulletin(candidat); // on instancie le bulletin de vote
+         session.setAttribute("bulletin", bulletin);
+         session.setAttribute("ballot", new Ballot(bulletin));
          List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
          ballots.put(current.getLogin(), new Ballot(bulletin));
          bulletins.add(bulletin);
          getServletContext().setAttribute("bulletins", bulletins);
+         getServletContext().setAttribute("ballots", ballots);
+         System.out.println(current.getLogin() + " just voted.");
+
+      } else {
+         System.out.println("Cannot create the ballot, cause : " + current.getLogin() +" already voted");
       }
-      getServletContext().setAttribute("ballots", ballots);
 
       //on renvoie la réponse
       request.getRequestDispatcher("ballot.jsp").forward(request, response);

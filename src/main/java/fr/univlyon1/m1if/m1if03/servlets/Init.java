@@ -36,7 +36,7 @@ public class Init extends HttpServlet {
                 candidats = CandidatListGenerator.getCandidatList();
                 context.setAttribute("candidats", candidats);
             }
-            System.out.println("Init servlet launched");
+            System.out.println("\nInit servlet launched");
         }   catch (IOException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());

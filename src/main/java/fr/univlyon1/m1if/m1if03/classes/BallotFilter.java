@@ -8,10 +8,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebFilter(filterName = "BallotFilter" , urlPatterns="/*")
+@WebFilter(filterName = "BallotFilter" , urlPatterns="/listBallots.jsp")
 public class BallotFilter extends HttpFilter {
     ServletContext context;
 
@@ -21,6 +22,13 @@ public class BallotFilter extends HttpFilter {
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpSession session = request.getSession(false);
+        //(session == null) || (session.getAttribute("user") == null) ||
+        if(!((User)session.getAttribute("user")).isAdmin()) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.sendRedirect("vote.jsp");
+            return;
+        }
         chain.doFilter(request, response);
     }
 
