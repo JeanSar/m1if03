@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page errorPage="WEB-INF/error.jsp" %>
+<%--@ page errorPage="WEB-INF/error.jsp" --%>
 
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
@@ -32,7 +32,7 @@
             <jsp:useBean id="ballot" scope="session" type="fr.univlyon1.m1if.m1if03.classes.Ballot" />
             <form method="post" action="deleteVote">
                 <p class="header-user"> Votre vote:<strong> ${sessionScope['ballot'].getBulletin().getCandidat().getNom()} ${applicationScope['ballot'].getBulletin().getCandidat().getPrenom() }</strong></p>
-                <input name="nomVote" id="nomVote" type="hidden">
+                <input type="hidden" name="user" value="${sessionScope['user'].getLogin()}">
                 <p>
                     <input type="submit" name="action" value="supprimer">
                 </p>
