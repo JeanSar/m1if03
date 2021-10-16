@@ -20,8 +20,7 @@ public class DeleteVoteServlet extends HttpServlet {
    }
 
    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      HttpSession session = request.getSession(false);
-      User current = (User)session.getAttribute("user");
+      HttpSession session = request.getSession(false);User current = (User)session.getAttribute("user");
 
       //on met a jour le contexte des servlets i.e. du serveur
       List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");

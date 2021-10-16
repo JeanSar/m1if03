@@ -27,11 +27,9 @@
 
     <jsp:include page="WEB-INF/components/menu.jsp" />
     <article class="contenu">
-
-        <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
         <h2>Votre preuve de vote</h2>
         <c:if test="${!empty sessionScope.ballot}">
-            <jsp:useBean id="ballot" scope="session" class="fr.univlyon1.m1if.m1if03.classes.Ballot" />
+            <jsp:useBean id="ballot" scope="session" type="fr.univlyon1.m1if.m1if03.classes.Ballot" />
             <form method="post" action="deleteVote">
                 <p class="header-user"> Votre vote:<strong> ${sessionScope['ballot'].getBulletin().getCandidat().getNom()} ${applicationScope['ballot'].getBulletin().getCandidat().getPrenom() }</strong></p>
                 <input name="nomVote" id="nomVote" type="hidden">
