@@ -21,7 +21,7 @@
 <html>
 <head>
     <title>Liste des ballots (admin)</title>
-    <link rel="stylesheet" type="text/css" href="vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vote.css">
 </head>
 <body>
 <jsp:include page="WEB-INF/components/header.jsp?title=Liste des ballots (admin)"/>

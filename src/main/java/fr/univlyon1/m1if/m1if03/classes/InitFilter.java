@@ -44,7 +44,7 @@ public class InitFilter extends HttpFilter {
         for(String p : uncaught) {
             if(path.endsWith(p)) {
                 isCaught = false;
-                System.out.println("UNCAUGHT");
+                System.out.println("\nUNCAUGHT");
                 break;
             }
         }
@@ -53,8 +53,9 @@ public class InitFilter extends HttpFilter {
             if((session == null) || (session.getAttribute("user") == null)) {
 
                 System.out.println("\nPath(Filter) : " + path);
-                System.out.println(request.getContextPath());
-                System.out.println(referer); //referer is the requesting entity client side path
+                System.out.println("In Context : " + request.getContextPath());
+                System.out.println("From referer : " + referer); //referer is the requesting entity client side path
+                System.out.println("CAUGHT");
 
                 String login = request.getParameter("login");
                 if (login != null) {

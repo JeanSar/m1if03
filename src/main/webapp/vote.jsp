@@ -18,7 +18,7 @@
 <html>
 <head>
     <title>Vote</title>
-    <link rel="stylesheet" type="text/css" href="vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vote.css">
 </head>
 <body>
 <header>

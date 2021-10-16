@@ -21,7 +21,7 @@ public class DecoServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession(true); //on récupère la session
             session.invalidate();
-            response.sendRedirect("index.html");
+            response.sendRedirect("/");
         } catch (IOException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la déconnexion");
