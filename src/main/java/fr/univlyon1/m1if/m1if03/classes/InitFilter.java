@@ -61,7 +61,7 @@ public class InitFilter extends HttpFilter {
                 if (login != null) {
                     if (login.equals("")){
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        request.getRequestDispatcher("index.html").forward(request, response);
+                        response.sendRedirect(request.getContextPath() + "/index.html");
                         return;
                     } else {
                         session = request.getSession(true);
