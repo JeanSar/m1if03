@@ -10,17 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 
 @WebFilter(filterName = "InitFilter" , urlPatterns="/*")
 public class InitFilter extends HttpFilter {
     ServletContext context;
+    final ArrayList<String> uncaught = new ArrayList<>();
 
     public void init(FilterConfig config) throws ServletException {
         super.init(config);
         context = config.getServletContext();
+        //these are files/paths that not needs to be filtered
+        uncaught.add("/");
+        uncaught.add("/resultats");
+        uncaught.add("/index.html");
+        uncaught.add("/vote.css");
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -34,9 +40,16 @@ public class InitFilter extends HttpFilter {
         System.out.println(request.getRequestURI());
         System.out.println(referer); //referer is the requesting entity client side path
         HttpSession session = request.getSession(false);
-        // if the requested url is not resultats or / or index.html
 
-        if(!Pattern.compile("^/((resultats)|(index\\.html)|([a-z\\-]+\\.css))?$").matcher(path).matches()) {
+        // check if the path must be filtered
+        boolean isCaught = true;
+        for(String p : uncaught) {
+            if(p.equals(path)) {
+                isCaught = false;
+                break;
+            }
+        }
+        if(isCaught) {
             if((session == null) || (session.getAttribute("user") == null)) {
                 String login = request.getParameter("login");
                 if (login != null) {
