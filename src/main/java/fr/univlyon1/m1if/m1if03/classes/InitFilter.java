@@ -24,7 +24,9 @@ public class InitFilter extends HttpFilter {
         context = config.getServletContext();
         //these are files/paths that not needs to be filtered
         uncaught.add("/");
+        uncaught.add("/election");
         uncaught.add("/resultats");
+        uncaught.add("/resultats.jsp");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
     }
@@ -44,11 +46,12 @@ public class InitFilter extends HttpFilter {
         // check if the path must be filtered
         boolean isCaught = true;
         for(String p : uncaught) {
-            if(p.equals(path)) {
+            if(p.endsWith(path)) {
                 isCaught = false;
                 break;
             }
         }
+
         if(isCaught) {
             if((session == null) || (session.getAttribute("user") == null)) {
                 String login = request.getParameter("login");

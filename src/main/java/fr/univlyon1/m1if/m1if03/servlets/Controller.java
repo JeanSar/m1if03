@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/election/*"})
+@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
 public class Controller extends HttpServlet {
 
     @Override
@@ -17,21 +17,27 @@ public class Controller extends HttpServlet {
         super.init(config);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-    }
+    public void processRequest(HttpServletRequest request, HttpServletResponse response )
+            throws ServletException, IOException {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        //if (path.toString().contains("secondPage")) {}
         System.out.println("\nPath1 : " + path);
         System.out.println(request.getContextPath());
         System.out.println(request.getRequestURI());
         System.out.println(request.getHeader("Referer"));
 
-        request.getRequestDispatcher("Resultats").include(request, response);
-        //request.getRequestDispatcher("resultats.jsp").forward(request, response);
-        //response.sendRedirect("resultats");
+        request.getRequestDispatcher("/resultats").include(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        processRequest(request, response);
     }
 }
