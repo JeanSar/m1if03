@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
-public class Controller extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/user", "/user/*"})
+public class UserController extends HttpServlet {
     ServletContext context;
 
     @Override
@@ -23,24 +23,16 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("\nPath (controller) : " + path);
+        System.out.println("\nPath (user controller) : " + path);
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        String subPath = path.substring(9);
-        System.out.println("le sous path controller = "+ subPath);
+        String subPath = path.substring(14);
+        System.out.println("le sous path userController = "+ subPath);
 
         switch (subPath) {
             case "/":
             case "":
-                request.getRequestDispatcher("/index.html").forward(request, response);
-                break;
-            case "/vote":
-                request.getRequestDispatcher("/vote.jsp").forward(request, response);
-                break;
-            case "/listBallots":
-                request.getRequestDispatcher("/listBallots.jsp").forward(request, response);
-                break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);
                 break;

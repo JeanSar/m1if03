@@ -12,13 +12,13 @@
     <h2>Menu</h2>
     <ul>
         <c:if test="${!empty sessionScope['user']}">
-            <li><a href="vote.jsp">Voter</a></li>
-            <li><a href="ballot.jsp">Votre vote</a></li>
+            <li><a href="votes/vote.jsp">Voter</a></li>
+            <li><a href="ballot/ballot.jsp">Votre vote</a></li>
             <c:if test="${sessionScope['user'].isAdmin()}">
-                <li><a href="listBallots.jsp">Liste des votes</a></li>
+                <li><a href="ballot/listBallots.jsp">Liste des votes</a></li>
             </c:if>
-            <li><a href="settings.jsp">Paramètres</a></li>
-            <li><a href="deco">Déconnexion</a></li>
+            <li><a href="user/settings.jsp">Paramètres</a></li>
+            <li><a href="user/deco">Déconnexion</a></li>
         </c:if>
         <br>
         <li><a href="resultats">Résultats</a></li>
