@@ -8,11 +8,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.Map;
 
 
 @WebFilter(filterName = "CacheFilter" , urlPatterns= {"/election/vote/putvote", "/election/listBallots"})
@@ -25,27 +25,38 @@ public class CacheFilter extends HttpFilter {
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
 
-        String path = request.getRequestURI().substring(request.getContextPath().length());
-        String subPath = path.substring(9);
+        //String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        //if c'est une requete POST de vote
-        if ("/vote/putvote".equals(subPath)) {
-            Date date = new Date();
-            response.setDateHeader("Last-Modified", date.getTime());
-        } else { //if c'est une requete GET vers listballot
+        //if c'est une requete POST
+        if (request.getMethod().equals("GET")) {
             long lastModifiedFromBrowser = request.getDateHeader("If-Modified-Since");
-            long lastModifiedFromServer = request.getDateHeader("Last-Modified");
+            long lastModifiedFromServer = getLastModifiedMillis();
 
             if (lastModifiedFromBrowser != -1 && lastModifiedFromServer <= lastModifiedFromBrowser) {
                 //setting 304 and returning with empty body
+                System.out.println("\n NOT MODIFIED : browser version is up-to-date");
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
                 return;
             }
-            response.addDateHeader("Last-Modified", lastModifiedFromServer);
+            System.out.println("\n MODIFIED : server update client");
+
+        } else { //if c'est une requete POST
+            System.out.println("\n MODIFIED : client update server");
         }
+        Date date = new Date();
+        response.setDateHeader("Last-Modified", date.getTime());
+
         chain.doFilter(request, response);
+    }
+
+    private static long getLastModifiedMillis() {
+        //Using hard coded value, in real scenario there should be for example
+        // last modified date of this servlet or of the underlying resource
+        ZonedDateTime zdt = ZonedDateTime.of(LocalDateTime.of(2017, 1, 8,
+                        10, 30, 20),
+                ZoneId.of("GMT"));
+        return zdt.toInstant().toEpochMilli();
     }
 
     public void destroy() {

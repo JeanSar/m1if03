@@ -22,12 +22,6 @@ public class ListBallotController extends HttpServlet {
     public void processRequest(HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("\nPath (ballot controller) : " + path);
-        System.out.println("In Context : " + context.getContextPath());
-        System.out.println("From referer : " + request.getHeader("Referer"));
-
-
         request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
 
     }

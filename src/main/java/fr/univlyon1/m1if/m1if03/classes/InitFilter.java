@@ -43,7 +43,7 @@ public class InitFilter extends HttpFilter {
         for(String p : uncaught) {
             if(path.endsWith(p)) {
                 isCaught = false;
-                System.out.println("\nUNCAUGHT");
+                System.out.println("\n"+ path +" request UNCAUGHT");
                 break;
             }
         }

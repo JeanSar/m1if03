@@ -1,5 +1,7 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
+import sun.awt.X11.XSystemTrayPeer;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -26,9 +28,10 @@ public class Controller extends HttpServlet {
         System.out.println("\nPath " + getServletName()+" : " + path);
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
+        System.out.println("Type : " + request.getMethod());
 
         String subPath = path.substring(9); // on enlève /election
-        System.out.println("le sous path controller = "+ subPath);
+        //System.out.println("le sous path controller = "+ subPath);
 
         //check if the path isn't looping
         if(subPath.startsWith("/election")) {
