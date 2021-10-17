@@ -60,7 +60,6 @@ public class InitFilter extends HttpFilter {
                 String login = request.getParameter("login");
                 if (login != null) {
                     if (login.equals("")){
-                        response.setStatus(400);
                         response.sendRedirect(context.getContextPath() + "/index.html");
                         return;
                     } else {
@@ -79,7 +78,6 @@ public class InitFilter extends HttpFilter {
                         }
                     }
                 } else {
-                    response.setStatus(403);
                     response.sendRedirect(context.getContextPath() + "/index.html");
                     return;
                 }

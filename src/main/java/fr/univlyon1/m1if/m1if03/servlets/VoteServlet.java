@@ -57,14 +57,7 @@ public class VoteServlet extends HttpServlet {
       } else {
          System.out.println("Cannot create the ballot, cause : " + current.getLogin() +" already voted");
       }
-
-      //on renvoie la réponse
-      if (current.isAdmin()){
-         request.getRequestDispatcher("/election/listBallots").forward(request, response);
-      } else {
-         request.getRequestDispatcher("/election/vote/ballot").forward(request, response);
-      }
-
+      request.getRequestDispatcher("/election/vote").forward(request, response);
    }
 
    @Override

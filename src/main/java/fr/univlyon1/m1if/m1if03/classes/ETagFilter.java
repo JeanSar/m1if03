@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Map;
 
 
 @WebFilter(filterName = "ETagFilter" , urlPatterns="/election/vote/ballot")
 public class ETagFilter extends HttpFilter {
     ServletContext context;
-    String lastETagBallot = null;
-
 
     public void init(FilterConfig config) throws ServletException {
         super.init(config);
@@ -24,30 +23,47 @@ public class ETagFilter extends HttpFilter {
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
         if (request.getMethod().equals("GET")) {
+            HttpSession session = request.getSession(false);
+            int nb = getNbVotes();
             String lastETagFromBrowser = request.getHeader("If-None-Match");
-            String lastETagFromServer = lastETagBallot;
 
-            if (lastETagFromServer.equals(lastETagFromBrowser)) {
+            String lastETagBallot = getETag(nb, session);
+
+            if (lastETagBallot.equals(lastETagFromBrowser)) {
                 //setting 304 and returning with empty body
                 System.out.println("\n NOT MODIFIED : browser ETag match server one");
                 response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
                 return;
             }
             System.out.println("\n MODIFIED : server update client and ETag");
-            System.out.print(lastETagFromServer);
-            response.addHeader("ETag", getETag());
+            System.out.print(lastETagBallot);
+            //String.valueOf(lastETagBallot.hashCode());
 
-        } else { //if c'est une requete POST
-            System.out.println("\n MODIFIED : client update server and ETag");
-            lastETagBallot = getETag();
+            session.setAttribute("nbLoadVotes", nb);
+
+            response.addHeader("ETag",getETag(nb, session));
+
         }
         chain.doFilter(request, response);
     }
 
-    private String getETag () {
-        return "\"version1\"";
+    private Integer getNbVotes() {
+        int cpt = 0;
+        final Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
+        for(String ignored : ballots.keySet()) {
+            cpt++;
+        }
+        return cpt;
+    }
+
+    private String getETag (Integer nbVote, HttpSession session) {
+        if(session.getAttribute("ballot") != null) {
+            Ballot ballot = (Ballot) session.getAttribute("ballot");
+            return String.valueOf((nbVote + ballot.hashCode()) * getServletContext().hashCode());
+        } else {
+            return String.valueOf((nbVote + getFilterConfig().hashCode()) * getServletContext().hashCode());
+        }
     }
 
     public void destroy() {

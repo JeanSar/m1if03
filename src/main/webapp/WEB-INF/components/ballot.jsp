@@ -4,10 +4,11 @@
   Date: 03/10/2021
   Time: 13:14
   To change this template use File | Settings | File Templates.
+
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page errorPage="../error.jsp" %>
+<%--@ page errorPage="../error.jsp" --%>
 <% String newcontext = request.getContextPath() + "/election"; %>
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
@@ -15,7 +16,7 @@
 <html>
 <head>
     <title>Ballot</title>
-    <meta http-equiv="refresh" content="5;URL='${pageContext.request.contextPath}/election/vote/ballot'" />
+    <meta http-equiv="refresh" content="200;URL='${pageContext.request.contextPath}/election/vote/ballot'" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>
@@ -46,7 +47,7 @@
             </p>
         </c:if>
         <c:if test="${!empty sessionScope['nbLoadVotes']}">
-            <jsp:useBean id="nbLoadVotes" scope="session" type="java.lang.String" />
+            <jsp:useBean id="nbLoadVotes" scope="session" type="java.lang.Integer" />
             ${sessionScope['nbLoadVotes']} utilisateurs ont déjà votés !!
         </c:if>
     </article>
