@@ -8,12 +8,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebFilter(filterName = "BallotFilter" , urlPatterns="/election/listBallots")
-public class BallotFilter extends HttpFilter {
+@WebFilter(filterName = "ETagFilter" , urlPatterns="/election/vote/ballot")
+public class ETagFilter extends HttpFilter {
     ServletContext context;
 
     public void init(FilterConfig config) throws ServletException {
@@ -22,12 +21,7 @@ public class BallotFilter extends HttpFilter {
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        if(!((User)session.getAttribute("user")).isAdmin()) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            request.getRequestDispatcher("/election").forward(request, response);
-            return;
-        }
+        System.out.println("CATCH CATCH CATCH");
         chain.doFilter(request, response);
     }
 
