@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Date;
 
 
-@WebFilter(filterName = "CacheFilter" , urlPatterns= {"/election/vote/putvote", "/election/listBallots"})
+@WebFilter(filterName = "CacheFilter" , urlPatterns= {"/election/vote/putvote", "/election/vote/deleteVote","/election/listBallots"})
 public class CacheFilter extends HttpFilter {
     ServletContext context;
     long lastModifiedBallots = -1;

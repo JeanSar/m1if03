@@ -35,6 +35,7 @@
     <filter-mapping>
         <filter-name>CacheFilter</filter-name>
         <url-pattern>/election/vote/putvote</url-pattern>
+        <url-pattern>/election/vote/deleteVote</url-pattern>
         <url-pattern>/election/listBallots</url-pattern>
     </filter-mapping>
 
