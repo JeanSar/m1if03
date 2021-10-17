@@ -21,7 +21,6 @@ public class ListBallotController extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
-
         request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
 
     }
