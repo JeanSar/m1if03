@@ -19,14 +19,12 @@ public class DecoServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
        throws IOException {
         try {
-            request.getServletContext().setAttribute("ballot", "");
-            request.getServletContext().setAttribute("bulletin", "");
             HttpSession session = request.getSession(true); //on récupère la session
             session.invalidate();
-            response.sendRedirect("index.html");
-        } catch (IOException e) {
+            request.getRequestDispatcher("/election").forward(request, response);
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la déconnexion");
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }

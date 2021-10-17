@@ -15,36 +15,48 @@ import java.util.Map;
 @WebServlet(name = "DeleteVote", value = "/deleteVote")
 public class DeleteVoteServlet extends HttpServlet {
 
-   public void init() {
-      // Do required initialization
-   }
+    public void init() {
+        // Do required initialization
+    }
 
-   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      ServletContext requestContext = request.getServletContext();
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
+        Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
 
+        HttpSession session = request.getSession(false);
+        User current = (User)session.getAttribute("user");
+        String login = request.getParameter("user");
 
+        //removing the bulletin/ballot in model and updating it
+        Ballot ballotToRm = ballots.get(login);
+        if(ballotToRm == null){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").include(request, response);
+            return;
+        }
+        bulletins.remove(ballotToRm.getBulletin());
+        ballots.remove(login);
+        getServletContext().setAttribute("bulletins", bulletins);
+        getServletContext().setAttribute("ballots", ballots);
 
-      //on met a jour le contexte des servlets i.e. du serveur
-      List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
-      Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
+        //if the user  is not trying to delete another user's ballot
+        if(current.getLogin().equals(login)) {
+            session.removeAttribute("ballot");
+            session.removeAttribute("bulletin");
+            System.out.println("Current " + login +" just deleted his own vote");
+            request.getRequestDispatcher("/vote").forward(request, response);
+        } else  {
+            System.out.println("Admin " + current.getLogin() + " just deleted " + login + " vote");
+            request.getRequestDispatcher("/election/listBallots").forward(request, response);
+        }
+    }
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/election/vote/ballot").forward(request, response);
 
-      Bulletin b = (Bulletin) requestContext.getAttribute("bulletin");
-      bulletins.remove(b);
-      getServletContext().setAttribute("bulletins", bulletins);
+    }
 
-      User current = (User)request.getSession().getAttribute("user");
-      ballots.remove(current.getLogin());
-      getServletContext().setAttribute("ballots", ballots);
-
-      requestContext.setAttribute("ballot", "");
-      requestContext.setAttribute("bulletin", "");
-
-      request.getRequestDispatcher("ballot.jsp").forward(request, response);
-
-   }
-
-   public void destroy() {
-      // do nothing.
-   }
+    public void destroy() {
+        // do nothing.
+    }
 }

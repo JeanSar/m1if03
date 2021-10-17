@@ -10,30 +10,29 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
-<%@ page errorPage="WEB-INF/error.jsp" %>
-
+<%@ page errorPage="../error.jsp" %>
+<% String newcontext = request.getContextPath() + "/election"; %>
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
 </c:if>
 <html>
 <head>
     <title>Vote</title>
-    <link rel="stylesheet" type="text/css" href="vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>
 <header>
-    <jsp:include page="WEB-INF/components/header.jsp">
+    <jsp:include page="header.jsp">
         <jsp:param name="title" value="Voter pour qui vous voulez"/>
     </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
 
-    <jsp:include page="WEB-INF/components/menu.jsp" />
+    <jsp:include page="menu.jsp" />
 
     <article class="contenu">
     <c:choose>
-        <c:when test="${empty applicationScope['ballot'] }">
-            <%-- jsp:useBean id="votes" scope="request" class="java.util.HashMap" /--%>
+        <c:when test="${empty sessionScope.ballot }">
             <h2>Voter pour qui vous voulez</h2>
             <%
                 Map<Candidat, Integer> votes = new HashMap<>();
@@ -41,7 +40,7 @@
                     votes.put(leCandidat, 0);
                 }
             %>
-            <form method="post" action="vote">
+            <form method="post" action="<%=newcontext%>/vote/putvote">
                 Sélectionnez un candidat :
                 <label>
                     <select name="candidats">
@@ -59,7 +58,7 @@
         <c:otherwise>
             <p class="header-user"> Vous avez déjà voté !!</p>
             <p>
-                <a href="ballot.jsp" class="button">Voir mon vote</a>
+                <a href="<%=newcontext%>/vote/ballot" class="button">Voir mon vote</a>
             </p>
         </c:otherwise>
     </c:choose>

@@ -5,19 +5,18 @@ import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.Candidat;
 import fr.univlyon1.m1if.m1if03.classes.User;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Vote", value = "/vote")
+@WebServlet(name = "Vote", value = "/putvote")
 public class VoteServlet extends HttpServlet {
-
 
    public void init() {
       // Do required initialization
@@ -27,7 +26,7 @@ public class VoteServlet extends HttpServlet {
 
       // Set response content type
       response.setContentType("text/html");
-
+      HttpSession session = request.getSession(false);
       // Actual logic goes here.
 
       String[] str = request.getParameter("candidats").split(" ");
@@ -36,14 +35,6 @@ public class VoteServlet extends HttpServlet {
          request.getParameter("candidats") != null ? str[0] : "", //nom
          request.getParameter("candidats") != null ? str[1] : ""); //prenom
 
-      Bulletin bulletin = new Bulletin(candidat);
-      Ballot ballot = new Ballot(bulletin); // on crée un ballot de retour
-
-
-      ServletContext requestContext = request.getServletContext();
-
-      requestContext.setAttribute("ballot", ballot);
-      requestContext.setAttribute("bulletin", bulletin);
 
       //on met a jour le contexte des servlets i.e. du serveur
 
@@ -52,21 +43,26 @@ public class VoteServlet extends HttpServlet {
       User current = (User)request.getSession().getAttribute("user");
 
       if(!ballots.containsKey(current.getLogin())) {  //cannot add if already exists
+
+         Bulletin bulletin = new Bulletin(candidat); // on instancie le bulletin de vote
+         session.setAttribute("bulletin", bulletin);
+         session.setAttribute("ballot", new Ballot(bulletin));
          List<Bulletin> bulletins = (List<Bulletin>)getServletContext().getAttribute("bulletins");
-         ballots.put(current.getLogin(), ballot);
+         ballots.put(current.getLogin(), new Ballot(bulletin));
          bulletins.add(bulletin);
          getServletContext().setAttribute("bulletins", bulletins);
+         getServletContext().setAttribute("ballots", ballots);
+         System.out.println(current.getLogin() + " just voted.");
+
+      } else {
+         System.out.println("Cannot create the ballot, cause : " + current.getLogin() +" already voted");
       }
-      getServletContext().setAttribute("ballots", ballots);
-
-      //on renvoie la réponse
-      request.getRequestDispatcher("ballot.jsp").forward(request, response);
-
+      request.getRequestDispatcher("/election/vote").forward(request, response);
    }
 
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      response.sendRedirect("index.html");
+      response.sendRedirect(getServletContext().getContextPath() + "/index.html");
    }
 
    public void destroy() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Vote - accueil</title>
-    <link rel="stylesheet" type="text/css" href="vote.css">
+    <link rel="stylesheet" type="text/css" href="ressources/css/vote.css">
 </head>
 <body>
 <header>
@@ -13,11 +13,11 @@
     <aside class="menu">
         <h2>Menu</h2>
         <ul>
-            <li><a href="init">Résultats</a></li>
+            <li><a href="election/resultats">Résultats</a></li>
         </ul>
     </aside>
     <article class="contenu">
-        <form method="post" action="init">
+        <form method="post" action="election/vote">
             <h2>Connectez-vous pour pouvoir voter</h2>
             <p>
                 <label>
@@ -30,6 +30,10 @@
                     Entrez votre nom :
                     <input type="text" name="nom">
                 </label>
+            </p>
+            <p>
+                <label for="admin">Êtes-vous administrateur ?</label>
+                <input type="checkbox" name="admin" id="admin">
             </p>
             <p>
                 <input type="submit" name="action" value="Connexion">
