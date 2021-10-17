@@ -49,10 +49,6 @@ public class InitFilter extends HttpFilter {
 
                 break;
             }
-            if(!(path.startsWith("/election") || path.startsWith("/index.html"))) {
-                response.sendError(404);
-                break;
-            }
         }
 
         if(isCaught) {
