@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Vote", value = "/vote")
+@WebServlet(name = "Vote", value = "/votes")
 public class VoteServlet extends HttpServlet {
 
    public void init() {

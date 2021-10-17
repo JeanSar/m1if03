@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ballotController", urlPatterns = {"/ballot"})
-public class BallotController extends HttpServlet {
+@WebServlet(name = "listBallotController", urlPatterns = {"/listBallots"})
+public class ListBallotController extends HttpServlet {
     ServletContext context;
 
     @Override

@@ -17,7 +17,7 @@
             <c:if test="${sessionScope['user'].isAdmin()}">
                 <li><a href="ballot/listBallots.jsp">Liste des votes</a></li>
             </c:if>
-            <li><a href="user/settings.jsp">Paramètres</a></li>
+            <li><a href="user/changeSettings">Paramètres</a></li>
             <li><a href="user/deco">Déconnexion</a></li>
         </c:if>
         <br>

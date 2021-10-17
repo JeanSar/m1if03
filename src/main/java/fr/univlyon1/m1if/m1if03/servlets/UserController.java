@@ -33,6 +33,9 @@ public class UserController extends HttpServlet {
         switch (subPath) {
             case "/":
             case "":
+            case "/changeSettings":
+                request.getRequestDispatcher("settings.jsp").forward(request, response);
+                break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);
                 break;

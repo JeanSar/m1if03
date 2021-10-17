@@ -35,9 +35,6 @@ public class Controller extends HttpServlet {
             case "":
                 response.sendRedirect(context.getContextPath() + "/index.html");
                 break;
-            case "/listBallots":
-                request.getRequestDispatcher("/listBallots.jsp").forward(request, response);
-                break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);
                 break;

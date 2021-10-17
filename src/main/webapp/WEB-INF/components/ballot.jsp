@@ -30,7 +30,7 @@
         <h2>Votre preuve de vote</h2>
         <c:if test="${!empty sessionScope.ballot}">
             <jsp:useBean id="ballot" scope="session" type="fr.univlyon1.m1if.m1if03.classes.Ballot" />
-            <form method="post" action="deleteVote">
+            <form method="post" action="votes/deletevote">
                 <p class="header-user"> Votre vote:<strong> ${sessionScope['ballot'].getBulletin().getCandidat().getNom()} ${applicationScope['ballot'].getBulletin().getCandidat().getPrenom() }</strong></p>
                 <input type="hidden" name="user" value="${sessionScope['user'].getLogin()}">
                 <p>

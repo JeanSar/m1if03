@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "VoteController", urlPatterns = {"/votes", "/votes/*"})
+@WebServlet(name = "VoteController", urlPatterns = {"/vote", "/vote/*"})
 public class VoteController extends HttpServlet {
     ServletContext context;
 
@@ -33,11 +33,11 @@ public class VoteController extends HttpServlet {
         switch (subPath) {
             case "/":
             case "":
-            case "/vote":
+            case "/putvote":
                 request.getRequestDispatcher("/WEB-INF/components/vote.jsp").forward(request, response);
                 break;
             case "/ballot":
-                request.getRequestDispatcher("/WEB-INF/components/vote.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").forward(request, response);
                 break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);
