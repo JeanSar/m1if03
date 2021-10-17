@@ -33,6 +33,12 @@ public class VoteController extends HttpServlet {
         switch (subPath) {
             case "/":
             case "":
+            case "/vote":
+                request.getRequestDispatcher("/WEB-INF/components/vote.jsp").forward(request, response);
+                break;
+            case "/ballot":
+                request.getRequestDispatcher("/WEB-INF/components/vote.jsp").forward(request, response);
+                break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);
                 break;

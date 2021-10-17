@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page errorPage="WEB-INF/error.jsp" %>
+<%@ page errorPage="../error.jsp" %>
 
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
@@ -15,17 +15,17 @@
 <html>
 <head>
     <title>Ballot</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>
 <header>
-    <jsp:include page="WEB-INF/components/header.jsp">
+    <jsp:include page="header.jsp">
         <jsp:param name="title" value="Voter pour qui vous voulez"/>
     </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
 
-    <jsp:include page="WEB-INF/components/menu.jsp" />
+    <jsp:include page="menu.jsp" />
     <article class="contenu">
         <h2>Votre preuve de vote</h2>
         <c:if test="${!empty sessionScope.ballot}">

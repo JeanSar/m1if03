@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ballotController", urlPatterns = {"/ballot", "/ballot/*"})
+@WebServlet(name = "ballotController", urlPatterns = {"/ballot"})
 public class BallotController extends HttpServlet {
     ServletContext context;
 

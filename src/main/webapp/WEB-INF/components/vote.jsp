@@ -10,7 +10,7 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
-<%@ page errorPage="WEB-INF/error.jsp" %>
+<%@ page errorPage="../error.jsp" %>
 
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
@@ -18,17 +18,17 @@
 <html>
 <head>
     <title>Vote</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>
 <header>
-    <jsp:include page="WEB-INF/components/header.jsp">
+    <jsp:include page="header.jsp">
         <jsp:param name="title" value="Voter pour qui vous voulez"/>
     </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
 
-    <jsp:include page="WEB-INF/components/menu.jsp" />
+    <jsp:include page="menu.jsp" />
 
     <article class="contenu">
     <c:choose>

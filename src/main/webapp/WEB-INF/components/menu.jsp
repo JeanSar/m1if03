@@ -12,8 +12,8 @@
     <h2>Menu</h2>
     <ul>
         <c:if test="${!empty sessionScope['user']}">
-            <li><a href="votes/vote.jsp">Voter</a></li>
-            <li><a href="ballot/ballot.jsp">Votre vote</a></li>
+            <li><a href="votes/vote">Voter</a></li>
+            <li><a href="votes/ballot">Votre vote</a></li>
             <c:if test="${sessionScope['user'].isAdmin()}">
                 <li><a href="ballot/listBallots.jsp">Liste des votes</a></li>
             </c:if>

@@ -32,6 +32,5 @@ public class DecoServlet extends HttpServlet {
  
     public void destroy() {
        // do nothing.
-
     }
  }

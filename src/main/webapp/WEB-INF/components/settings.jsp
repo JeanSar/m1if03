@@ -18,17 +18,17 @@
 <html>
 <head>
     <title>Paramètres</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/vote.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>
 <header>
-    <jsp:include page="WEB-INF/components/header.jsp">
+    <jsp:include page="header.jsp">
         <jsp:param name="title" value="Résultats actuels de l'élection"/>
     </jsp:include>
 </header>
 <main id="contenu" class="wrapper">
 
-    <jsp:include page="WEB-INF/components/menu.jsp" />
+    <jsp:include page="menu.jsp" />
 
     <article class="contenu">
 

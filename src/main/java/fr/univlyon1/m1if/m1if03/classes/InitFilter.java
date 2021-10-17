@@ -28,7 +28,6 @@ public class InitFilter extends HttpFilter {
         uncaught.add("/deco");
         uncaught.add("/user");
         uncaught.add("/resultats");
-        uncaught.add("/resultats.jsp");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
     }
@@ -62,8 +61,8 @@ public class InitFilter extends HttpFilter {
                 String login = request.getParameter("login");
                 if (login != null) {
                     if (login.equals("")){
-                        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        response.sendRedirect(request.getContextPath() + "/index.html");
+                        response.setStatus(400);
+                        response.sendRedirect(context.getContextPath() + "/index.html");
                         return;
                     } else {
                         session = request.getSession(true);
@@ -81,8 +80,8 @@ public class InitFilter extends HttpFilter {
                         }
                     }
                 } else {
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                    request.getRequestDispatcher("index.html").forward(request, response);
+                    response.setStatus(403);
+                    response.sendRedirect(context.getContextPath() + "/index.html");
                     return;
                 }
             }

@@ -27,16 +27,13 @@ public class Controller extends HttpServlet {
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        String subPath = path.substring(9);
+        String subPath = path.substring(9); // on enlève /election
         System.out.println("le sous path controller = "+ subPath);
 
         switch (subPath) {
             case "/":
             case "":
-                request.getRequestDispatcher("/index.html").forward(request, response);
-                break;
-            case "/vote":
-                request.getRequestDispatcher("/vote.jsp").forward(request, response);
+                response.sendRedirect(context.getContextPath() + "/index.html");
                 break;
             case "/listBallots":
                 request.getRequestDispatcher("/listBallots.jsp").forward(request, response);
