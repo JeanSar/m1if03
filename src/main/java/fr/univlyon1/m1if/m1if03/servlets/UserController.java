@@ -30,16 +30,11 @@ public class UserController extends HttpServlet {
         String subPath = path.substring(5);
         System.out.println("le sous path userController = "+ subPath);
 
-        if (request.getHeader("Referer") != null){
-            if ("/settings".equals(subPath)) {
-                request.getRequestDispatcher("/WEB-INF/components/settings.jsp").include(request, response);
-            } else {
-                request.getRequestDispatcher(subPath).forward(request, response);
-            }
+        if ("/settings".equals(subPath)) {
+            request.getRequestDispatcher("/WEB-INF/components/settings.jsp").include(request, response);
         } else {
-            response.sendError(404);
+            request.getRequestDispatcher(subPath).forward(request, response);
         }
-
     }
 
     @Override

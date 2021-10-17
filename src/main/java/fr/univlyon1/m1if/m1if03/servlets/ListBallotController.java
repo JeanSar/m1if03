@@ -27,11 +27,9 @@ public class ListBallotController extends HttpServlet {
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        if (request.getHeader("Referer") != null){
-            request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
-        } else {
-            response.sendError(404);
-        }
+
+        request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
+
     }
 
     @Override
