@@ -34,7 +34,8 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>CacheFilter</filter-name>
-        <url-pattern>/listBallots.jsp</url-pattern>
+        <url-pattern>/election/vote/putvote</url-pattern>
+        <url-pattern>/election/listBallots</url-pattern>
     </filter-mapping>
 
     <session-config>
