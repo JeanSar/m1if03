@@ -30,6 +30,11 @@ public class VoteController extends HttpServlet {
         String subPath = path.substring(5);
         System.out.println("le sous path voteController = "+ subPath);
 
+        //check if the path isn't looping
+        if(subPath.startsWith("/vote")) {
+            response.sendError(404);
+        }
+
         switch (subPath) {
             case "/":
             case "":

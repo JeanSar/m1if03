@@ -30,6 +30,11 @@ public class UserController extends HttpServlet {
         String subPath = path.substring(5);
         System.out.println("le sous path userController = "+ subPath);
 
+        //check if the path isn't looping
+        if(subPath.startsWith("/user")) {
+            response.sendError(404);
+        }
+
         if ("/settings".equals(subPath)) {
             request.getRequestDispatcher("/WEB-INF/components/settings.jsp").include(request, response);
         } else {

@@ -23,12 +23,17 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("\nPath (controller) : " + path);
+        System.out.println("\nPath " + getServletName()+" : " + path);
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
         String subPath = path.substring(9); // on enlève /election
         System.out.println("le sous path controller = "+ subPath);
+
+        //check if the path isn't looping
+        if(subPath.startsWith("/election")) {
+            response.sendError(404);
+        }
 
         switch (subPath) {
             case "/":

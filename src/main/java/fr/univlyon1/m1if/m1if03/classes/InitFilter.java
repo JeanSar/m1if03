@@ -25,8 +25,6 @@ public class InitFilter extends HttpFilter {
         //these are files/paths that not needs to be filtered
         uncaught.add("/");
         uncaught.add("/election");
-        uncaught.add("/deco");
-        uncaught.add("/user");
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
@@ -46,14 +44,10 @@ public class InitFilter extends HttpFilter {
             if(path.endsWith(p)) {
                 isCaught = false;
                 System.out.println("\nUNCAUGHT");
-
-                break;
-            }
-            if(!(path.startsWith("/election") || path.startsWith("/index.html"))) {
-                response.sendError(404);
                 break;
             }
         }
+
 
         if(isCaught) {
             if((session == null) || (session.getAttribute("user") == null)) {
