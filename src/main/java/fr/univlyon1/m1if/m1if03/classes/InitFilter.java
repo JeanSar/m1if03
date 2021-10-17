@@ -46,6 +46,7 @@ public class InitFilter extends HttpFilter {
             if(path.endsWith(p)) {
                 isCaught = false;
                 System.out.println("\nUNCAUGHT");
+
                 break;
             }
         }

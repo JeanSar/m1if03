@@ -30,15 +30,20 @@ public class Controller extends HttpServlet {
         String subPath = path.substring(9); // on enlève /election
         System.out.println("le sous path controller = "+ subPath);
 
-        switch (subPath) {
-            case "/":
-            case "":
-                response.sendRedirect(context.getContextPath() + "/index.html");
-                break;
-            default:
-                request.getRequestDispatcher(subPath).forward(request, response);
-                break;
+        if (request.getHeader("Referer") != null){
+            switch (subPath) {
+                case "/":
+                case "":
+                    response.sendRedirect(context.getContextPath() + "/index.html");
+                    break;
+                default:
+                    request.getRequestDispatcher(subPath).forward(request, response);
+                    break;
+            }
+        } else {
+            response.sendError(404);
         }
+
     }
 
     @Override
