@@ -24,10 +24,6 @@ public class UserController extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        /* System.out.println("\nPath (user controller) : " + path);
-        System.out.println("In Context : " + context.getContextPath());
-        System.out.println("From referer : " + request.getHeader("Referer"));*/
-
         String subPath = path.substring(5);
         //check if the path isn't looping
         if(subPath.startsWith("/user")) {

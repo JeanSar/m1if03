@@ -23,9 +23,6 @@ public class VoteController extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        /*System.out.println("\nPath (vote controller) : " + path);
-        System.out.println("In Context : " + context.getContextPath());
-        System.out.println("From referer : " + request.getHeader("Referer"));*/
 
         String subPath = path.substring(5);
 
