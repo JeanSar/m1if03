@@ -60,7 +60,7 @@ public class VoteServlet extends HttpServlet {
 
       //on renvoie la réponse
       if (current.isAdmin()){
-         request.getRequestDispatcher("/election/vote").forward(request, response);
+         request.getRequestDispatcher("/election/listBallots").forward(request, response);
       } else {
          request.getRequestDispatcher("/election/vote/ballot").forward(request, response);
       }

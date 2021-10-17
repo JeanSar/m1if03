@@ -1,5 +1,7 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
+import fr.univlyon1.m1if.m1if03.classes.Ballot;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(name = "listBallotController", urlPatterns = {"/listBallots"})
 public class ListBallotController extends HttpServlet {
@@ -21,6 +24,8 @@ public class ListBallotController extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+        Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
+        request.setAttribute("ballots", ballots);
         request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
 
     }

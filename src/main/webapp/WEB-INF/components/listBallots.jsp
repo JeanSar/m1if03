@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:useBean id="ballots" type="java.util.Map" scope="application" beanName="ballots"/>
+<jsp:useBean id="ballots" type="java.util.Map" scope="request" beanName="ballots"/>
 <% String newcontext = request.getContextPath() + "/election"; %>
 
 <c:if test="${sessionScope.user == null || !sessionScope.user.admin}">
