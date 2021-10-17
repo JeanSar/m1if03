@@ -32,7 +32,7 @@ public class DeleteVoteServlet extends HttpServlet {
         Ballot ballotToRm = ballots.get(login);
         if(ballotToRm == null){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").include(request, response);
             return;
         }
         bulletins.remove(ballotToRm.getBulletin());
@@ -45,14 +45,14 @@ public class DeleteVoteServlet extends HttpServlet {
             session.removeAttribute("ballot");
             session.removeAttribute("bulletin");
             System.out.println("Current " + login +" just deleted his own vote");
-            request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").forward(request, response);
+            request.getRequestDispatcher("/vote").forward(request, response);
         } else  {
             System.out.println("Admin " + current.getLogin() + " just deleted " + login + " vote");
-            request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").forward(request, response);
+            request.getRequestDispatcher("/election/listBallots").forward(request, response);
         }
     }
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").forward(request, response);
+        request.getRequestDispatcher("/election/vote/ballot").forward(request, response);
 
     }
 

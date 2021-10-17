@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Settings", value = "/settings")
+@WebServlet(name = "Settings", value = "/changeSettings")
 public class SettingsServlet extends HttpServlet {
 
 
@@ -27,7 +27,7 @@ public class SettingsServlet extends HttpServlet {
          User current = (User)request.getSession().getAttribute("user");
          current.setNom((nom));
       }
-      request.getRequestDispatcher("settings.jsp").forward(request, response);
+      request.getRequestDispatcher("/election/user/settings").forward(request, response);
    }
 
    @Override

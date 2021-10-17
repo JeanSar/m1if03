@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "Vote", value = "/votes")
+@WebServlet(name = "Vote", value = "/putvote")
 public class VoteServlet extends HttpServlet {
 
    public void init() {
@@ -60,16 +60,16 @@ public class VoteServlet extends HttpServlet {
 
       //on renvoie la réponse
       if (current.isAdmin()){
-         request.getRequestDispatcher("listBallots.jsp").forward(request, response);
+         request.getRequestDispatcher("/election/vote").forward(request, response);
       } else {
-         request.getRequestDispatcher("ballot.jsp").forward(request, response);
+         request.getRequestDispatcher("/election/vote/ballot").forward(request, response);
       }
 
    }
 
    @Override
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      response.sendRedirect("index.html");
+      response.sendRedirect(getServletContext().getContextPath() + "/index.html");
    }
 
    public void destroy() {

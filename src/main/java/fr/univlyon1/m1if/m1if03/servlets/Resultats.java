@@ -42,7 +42,7 @@ public class Resultats extends HttpServlet {
                 }
             }
             request.setAttribute("votes", votes);
-            request.getRequestDispatcher("/WEB-INF/components/resultats.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/components/resultats.jsp").include(request, response);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");

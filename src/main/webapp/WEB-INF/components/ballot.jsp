@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page errorPage="../error.jsp" %>
-
+<% String newcontext = request.getContextPath() + "/election"; %>
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
 </c:if>
@@ -30,7 +30,7 @@
         <h2>Votre preuve de vote</h2>
         <c:if test="${!empty sessionScope.ballot}">
             <jsp:useBean id="ballot" scope="session" type="fr.univlyon1.m1if.m1if03.classes.Ballot" />
-            <form method="post" action="votes/deletevote">
+            <form method="post" action="<%=newcontext%>/vote/deleteVote">
                 <p class="header-user"> Votre vote:<strong> ${sessionScope['ballot'].getBulletin().getCandidat().getNom()} ${applicationScope['ballot'].getBulletin().getCandidat().getPrenom() }</strong></p>
                 <input type="hidden" name="user" value="${sessionScope['user'].getLogin()}">
                 <p>
@@ -41,7 +41,7 @@
         <c:if test="${empty sessionScope.ballot }">
             <p class="header-user"> Vous n'avez votez pour personne!</p>
             <p>
-                <a href="vote.jsp" class="button">Allez VOTER!</a>
+                <a href="<%=newcontext%>/vote" class="button">Allez VOTER!</a>
             </p>
         </c:if>
 

@@ -32,7 +32,7 @@
 
     <article class="contenu">
 
-        <form method="post" action="settings">
+        <form method="post" action="changeSettings">
             <h2>Modifier mon nom</h2>
             <p>
                 <label>

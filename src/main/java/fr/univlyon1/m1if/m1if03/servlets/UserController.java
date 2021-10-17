@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserController", urlPatterns = {"/user", "/user/*"})
+@WebServlet(name = "UserController", urlPatterns = {"/user/*"})
 public class UserController extends HttpServlet {
     ServletContext context;
 
@@ -27,18 +27,13 @@ public class UserController extends HttpServlet {
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        String subPath = path.substring(14);
+        String subPath = path.substring(5);
         System.out.println("le sous path userController = "+ subPath);
 
-        switch (subPath) {
-            case "/":
-            case "":
-            case "/changeSettings":
-                request.getRequestDispatcher("settings.jsp").forward(request, response);
-                break;
-            default:
-                request.getRequestDispatcher(subPath).include(request, response);
-                break;
+        if ("/settings".equals(subPath)) {
+            request.getRequestDispatcher("/WEB-INF/components/settings.jsp").include(request, response);
+        } else {
+            request.getRequestDispatcher(subPath).forward(request, response);
         }
     }
 

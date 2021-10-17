@@ -11,7 +11,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.Candidat" %>
 <%@ page errorPage="../error.jsp" %>
-
+<% String newcontext = request.getContextPath() + "/election"; %>
 <c:if test="${sessionScope.user == null && sessionScope.user.login == null}">
     <% response.sendError(403);%>
 </c:if>
@@ -40,7 +40,7 @@
                     votes.put(leCandidat, 0);
                 }
             %>
-            <form method="post" action="vote">
+            <form method="post" action="<%=newcontext%>/vote/putvote">
                 Sélectionnez un candidat :
                 <label>
                     <select name="candidats">
@@ -58,7 +58,7 @@
         <c:otherwise>
             <p class="header-user"> Vous avez déjà voté !!</p>
             <p>
-                <a href="ballot.jsp" class="button">Voir mon vote</a>
+                <a href="<%=newcontext%>/vote/ballot" class="button">Voir mon vote</a>
             </p>
         </c:otherwise>
     </c:choose>

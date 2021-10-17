@@ -27,16 +27,7 @@ public class ListBallotController extends HttpServlet {
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        String subPath = path.substring(16);
-        System.out.println("le sous path ballotController = "+ subPath);
-
-        switch (subPath) {
-            case "/":
-            case "":
-            default:
-                request.getRequestDispatcher(subPath).include(request, response);
-                break;
-        }
+        request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
     }
 
     @Override

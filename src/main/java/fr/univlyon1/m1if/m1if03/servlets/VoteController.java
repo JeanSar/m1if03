@@ -27,17 +27,16 @@ public class VoteController extends HttpServlet {
         System.out.println("In Context : " + context.getContextPath());
         System.out.println("From referer : " + request.getHeader("Referer"));
 
-        String subPath = path.substring(15);
+        String subPath = path.substring(5);
         System.out.println("le sous path voteController = "+ subPath);
 
         switch (subPath) {
             case "/":
             case "":
-            case "/putvote":
-                request.getRequestDispatcher("/WEB-INF/components/vote.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/components/vote.jsp").include(request, response);
                 break;
             case "/ballot":
-                request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/components/ballot.jsp").include(request, response);
                 break;
             default:
                 request.getRequestDispatcher(subPath).include(request, response);

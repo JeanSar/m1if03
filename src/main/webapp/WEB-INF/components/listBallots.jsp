@@ -9,6 +9,7 @@
 <%@ page import="fr.univlyon1.m1if.m1if03.classes.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:useBean id="ballots" type="java.util.Map" scope="application" beanName="ballots"/>
+<% String newcontext = request.getContextPath() + "/election"; %>
 
 <c:if test="${sessionScope.user == null || !sessionScope.user.admin}">
     <%
@@ -33,7 +34,7 @@
         <ul>
             <c:forEach items="${ballots}" var="ballotEntry">
                 <li>
-                    <form action="deleteVote" method="post">
+                    <form action="<%=newcontext%>/vote/deleteVote" method="post">
                         <c:out value="${ballotEntry.key}"/>
                         <input type="hidden" name="user" value="${ballotEntry.key}">
                         <input type="submit" value="supprimer">

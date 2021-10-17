@@ -36,7 +36,7 @@ public class Controller extends HttpServlet {
                 response.sendRedirect(context.getContextPath() + "/index.html");
                 break;
             default:
-                request.getRequestDispatcher(subPath).include(request, response);
+                request.getRequestDispatcher(subPath).forward(request, response);
                 break;
         }
     }

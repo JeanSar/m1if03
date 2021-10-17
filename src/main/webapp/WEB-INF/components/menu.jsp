@@ -8,19 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<% String newcontext = request.getContextPath() + "/election"; %>
 <aside class="menu">
     <h2>Menu</h2>
     <ul>
         <c:if test="${!empty sessionScope['user']}">
-            <li><a href="votes/vote">Voter</a></li>
-            <li><a href="votes/ballot">Votre vote</a></li>
+
+            <li><a href="<%=newcontext%>/vote">Voter</a></li>
+            <li><a href="<%=newcontext%>/vote/ballot">Votre vote</a></li>
             <c:if test="${sessionScope['user'].isAdmin()}">
-                <li><a href="ballot/listBallots.jsp">Liste des votes</a></li>
+                <li><a href="<%=newcontext%>/listBallots">Liste des votes</a></li>
             </c:if>
-            <li><a href="user/changeSettings">Paramètres</a></li>
-            <li><a href="user/deco">Déconnexion</a></li>
+            <li><a href="<%=newcontext%>/user/settings">Paramètres</a></li>
+            <li><a href="<%=newcontext%>/user/deco">Déconnexion</a></li>
         </c:if>
         <br>
-        <li><a href="resultats">Résultats</a></li>
+        <li><a href="<%=newcontext%>/resultats">Résultats</a></li>
     </ul>
 </aside>
