@@ -15,6 +15,7 @@
 <html>
 <head>
     <title>Ballot</title>
+    <meta http-equiv="refresh" content="5;URL='${pageContext.request.contextPath}/election/vote/ballot'" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ressources/css/vote.css">
 </head>
 <body>

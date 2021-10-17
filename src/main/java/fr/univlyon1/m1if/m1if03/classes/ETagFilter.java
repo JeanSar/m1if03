@@ -21,7 +21,6 @@ public class ETagFilter extends HttpFilter {
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        System.out.println("CATCH CATCH CATCH");
         chain.doFilter(request, response);
     }
 

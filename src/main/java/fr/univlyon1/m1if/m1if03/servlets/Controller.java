@@ -1,7 +1,4 @@
 package fr.univlyon1.m1if.m1if03.servlets;
-
-import sun.awt.X11.XSystemTrayPeer;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
