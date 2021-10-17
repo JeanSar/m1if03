@@ -45,7 +45,10 @@
                 <a href="<%=newcontext%>/vote" class="button">Allez VOTER!</a>
             </p>
         </c:if>
-
+        <c:if test="${!empty sessionScope['nbLoadVotes']}">
+            <jsp:useBean id="nbLoadVotes" scope="session" type="java.lang.String" />
+            ${sessionScope['nbLoadVotes']} utilisateurs ont déjà votés !!
+        </c:if>
     </article>
 </main>
 </body>
