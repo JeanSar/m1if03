@@ -20,7 +20,6 @@ deploy:
          #- cat ~/.m2/settings.xml
         - chmod 400 $CI_SSH_KEY
     script:
-        - cd ~ 
         - mvn clean package
         - scp -o StrictHostKeyChecking=no -i $CI_SSH_KEY /builds/target/server.war gitlabci@192.168.75.35:/opt/tomcat/webapps/v1.war
         
