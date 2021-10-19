@@ -28,5 +28,5 @@ deploy:
         - chmod 400 $CI_SSH_KEY
     script:
         - mvn clean package --batch-mode
-        - scp -o StrictHostKeyChecking=no -i $CI_SSH_KEY /builds/target/server.war gitlabci@192.168.75.35:/opt/tomcat/webapps/v1.war
+        - scp -o StrictHostKeyChecking=no -i $CI_SSH_KEY /target/server.war gitlabci@192.168.75.35:/opt/tomcat/webapps/v1.war
         
