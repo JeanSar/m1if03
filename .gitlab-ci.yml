@@ -15,7 +15,7 @@ deploy:
         # The runners on the forge need a proxy to access the web. mvn
         # ignores the $http_proxy & friends variable => write a
         # configuration file that does this for us.
-        - . m1if03_tp2/ci/setup-mvn-proxy.sh
+        - . ci/setup-mvn-proxy.sh
         # Useful only for debugging
          #- cat ~/.m2/settings.xml
         - chmod 400 $CI_SSH_KEY
