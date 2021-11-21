@@ -27,7 +27,7 @@ public class SettingsServlet extends HttpServlet {
          User current = (User)request.getSession().getAttribute("user");
          current.setNom((nom));
       }
-      request.getRequestDispatcher("/election/user/settings").forward(request, response);
+      request.getRequestDispatcher("/user/settings").forward(request, response);
    }
 
    @Override
