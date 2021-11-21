@@ -1,4 +1,5 @@
 package fr.univlyon1.m1if.m1if03.servlets;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/", "/*"})
-public class Controller extends HttpServlet {
+@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
+public class electionController extends HttpServlet {
     ServletContext context;
 
     @Override
@@ -23,12 +24,11 @@ public class Controller extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-
         String subPath = path.substring(9); // on enlève /election
         //System.out.println("le sous path controller = "+ subPath);
 
         //check if the path isn't looping
-        if(subPath.startsWith("/election")) {
+        if(subPath.startsWith("/user")) {
             response.sendError(404);
         }
 
@@ -36,9 +36,6 @@ public class Controller extends HttpServlet {
             case "/":
             case "":
                 response.sendRedirect(context.getContextPath() + "/index.html");
-                break;
-            case "/user/":
-                request.getRequestDispatcher(subPath).forward(request, response);
                 break;
             default:
                 request.getRequestDispatcher(subPath).forward(request, response);
@@ -48,11 +45,13 @@ public class Controller extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
         processRequest(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         processRequest(request, response);
     }
 }
