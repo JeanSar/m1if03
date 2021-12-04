@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "VoteController", urlPatterns = {"/vote", "/vote/*"})
@@ -52,8 +53,25 @@ public class VoteController extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        /*
+        if(session.getAttribute("pseudo")==null) {
+            response.sendRedirect(request.getContextPath() + "/init");
+        }
 
-        processRequest(request, response);
+        else {
+            Billet billet = ((GestionBillets) getServletContext().getAttribute("billets"))
+                    .getBilletByTitre(request.getPathInfo().substring(1));
+            if (billet != null) {
+                request.setAttribute("billet", billet);
+                request.getRequestDispatcher("/WEB-INF/jsp/billet.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/init");
+            }
+        }
+
+        */
     }
+
 }
