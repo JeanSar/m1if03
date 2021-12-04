@@ -1,5 +1,6 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.Candidat;
 
@@ -29,6 +30,8 @@ public class ResultatsController extends HttpServlet {
         try {
             assert(context.getAttribute("candidats") != null);
 
+            ObjectMapper om = new ObjectMapper();
+
             Map<String, Integer> votes = new HashMap<>();
             for (String nomCandidat : ((Map<String, Candidat>) context.getAttribute("candidats")).keySet()) {
                 votes.put(nomCandidat, 0);
@@ -40,9 +43,13 @@ public class ResultatsController extends HttpServlet {
                     votes.put(b.getCandidat().getNom(), ++score);
                 }
             }
-            request.setAttribute("votes", votes);
-            request.getRequestDispatcher("/WEB-INF/components/resultats.jsp").include(request, response);
-        } catch (IOException | ServletException e) {
+            String json = om.writeValueAsString(votes);
+            response.setContentType("application/json");
+            response.getWriter().print(json);
+            response.getWriter().flush();
+            //request.setAttribute("votes", votes);
+            //request.getRequestDispatcher("/WEB-INF/components/resultats.jsp").include(request, response);
+        } catch (IOException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
