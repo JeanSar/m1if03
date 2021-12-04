@@ -27,7 +27,6 @@ public class ListBallotController extends HttpServlet {
         Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
         request.setAttribute("ballots", ballots);
         request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
-
     }
 
     @Override
