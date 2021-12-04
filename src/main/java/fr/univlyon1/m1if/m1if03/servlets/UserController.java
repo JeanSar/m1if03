@@ -42,6 +42,12 @@ public class UserController extends HttpServlet {
         processRequest(request, response);
     }
 
+    //creer un utilisateur
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         processRequest(request, response);
