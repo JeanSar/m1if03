@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet(name = "Resultats", urlPatterns = "/resultats")
-public class Resultats extends HttpServlet {
+public class ResultatsController extends HttpServlet {
     ServletContext context;
     public void init(ServletConfig config) throws ServletException {
         // Cette instruction doit toujours être au début de la méthode init() pour pouvoir accéder à l'objet config.
@@ -25,8 +25,7 @@ public class Resultats extends HttpServlet {
         context = config.getServletContext();
     }
  
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-       throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             assert(context.getAttribute("candidats") != null);
 
@@ -49,7 +48,7 @@ public class Resultats extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
- 
+
     public void destroy() {
        // do nothing.
     }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
-public class electionController extends HttpServlet {
+public class ElectionController extends HttpServlet {
     ServletContext context;
 
     @Override

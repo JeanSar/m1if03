@@ -65,6 +65,12 @@ public class VoteServlet extends HttpServlet {
       response.sendRedirect(getServletContext().getContextPath() + "/index.html");
    }
 
+   //mette a jour un vote
+   @Override
+   protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+      super.doPut(req, resp);
+   }
+
    public void destroy() {
       // do nothing.
    }
