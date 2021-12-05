@@ -24,7 +24,7 @@ public class UsersController extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        String subPath = path.substring(5);
+        String subPath = path.substring(6);
         //check if the path isn't looping
         if(subPath.startsWith("/users")) {
             response.sendError(404);

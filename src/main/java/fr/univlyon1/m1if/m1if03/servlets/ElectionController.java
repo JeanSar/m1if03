@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
+@WebServlet(name = "ElectionController", urlPatterns = {"/election", "/election/*"})
 public class ElectionController extends HttpServlet {
     ServletContext context;
 
@@ -23,9 +23,9 @@ public class ElectionController extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-
+        System.out.println("Controller Election = "+ path);
         String subPath = path.substring(9); // on enlève /election
-        //System.out.println("le sous path controller = "+ subPath);
+        System.out.println("le sous path controller = "+ subPath);
 
         //check if the path isn't looping
         if(subPath.startsWith("/users")) {

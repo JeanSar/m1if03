@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/ballots", "/ballots/*"})
+@WebServlet(name = "BallotsController", urlPatterns = {"/ballots", "/ballots/*"})
 public class BallotsController extends HttpServlet {
     ServletContext context;
 
@@ -20,7 +20,7 @@ public class BallotsController extends HttpServlet {
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response )
-            throws ServletException, IOException {
+            throws IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 

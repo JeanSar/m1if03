@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/candidats", "/candidats/*"})
+@WebServlet(name = "CandidatController", urlPatterns = {"/candidats", "/candidats/*"})
 public class CandidatController extends HttpServlet {
     ServletContext context;
 
@@ -19,9 +19,9 @@ public class CandidatController extends HttpServlet {
         context = config.getServletContext();
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response )  throws ServletException, IOException {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response )  throws IOException {
         String path = request.getRequestURI().substring(request.getContextPath().length());
-
+        System.out.println("Controller Candidats = "+ path);
         String subPath = path.substring(10); // on enlève /candidats
         System.out.println("le sous path controller = "+ subPath);
 
