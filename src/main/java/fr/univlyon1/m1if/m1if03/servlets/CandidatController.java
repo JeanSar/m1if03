@@ -38,7 +38,12 @@ public class CandidatController extends HttpServlet {
                 try {
                     assert(context.getAttribute("candidats")!= null);
                     ObjectMapper om = new ObjectMapper();
-                    String json = om.writeValueAsString(context.getAttribute("candidats"));
+                    String toAdd = "http://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+                    List<String> noms = new ArrayList<>();
+                    for(String s : ((Map<String, Candidat>) context.getAttribute("candidats")).keySet()) {
+                        noms.add(toAdd + s.replace(' ', '_'));
+                    }
+                    String json = om.writeValueAsString(noms);
 
                     response.setContentType("application/json");
                     response.getWriter().print(json);
