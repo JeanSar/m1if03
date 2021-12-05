@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserController", urlPatterns ={"/user", "/user/*"})
-public class UserController extends HttpServlet {
+@WebServlet(name = "UsersController", urlPatterns ={"/users", "/users/*"})
+public class UsersController extends HttpServlet {
     ServletContext context;
 
     @Override
@@ -26,7 +26,7 @@ public class UserController extends HttpServlet {
 
         String subPath = path.substring(5);
         //check if the path isn't looping
-        if(subPath.startsWith("/user")) {
+        if(subPath.startsWith("/users")) {
             response.sendError(404);
         }
 

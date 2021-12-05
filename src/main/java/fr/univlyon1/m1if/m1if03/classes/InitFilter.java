@@ -25,7 +25,7 @@ public class InitFilter extends HttpFilter {
         //these are files/paths that not needs to be filtered
         uncaught.add("/");
         uncaught.add("/election");
-        uncaught.add("/user");
+        uncaught.add("/users");
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");

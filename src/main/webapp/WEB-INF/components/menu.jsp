@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <% String electioncontext = request.getContextPath() + "/election"; %>
-<% String usercontext = request.getContextPath() + "/user"; %>
+<% String usercontext = request.getContextPath() + "/users"; %>
 <aside class="menu">
     <h2>Menu</h2>
     <ul>

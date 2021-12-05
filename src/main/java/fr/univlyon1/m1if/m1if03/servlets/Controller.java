@@ -32,13 +32,10 @@ public class Controller extends HttpServlet {
             response.sendError(404);
         }
 
-        switch (subPath) {
+        switch(subPath){
             case "/":
             case "":
                 response.sendRedirect(context.getContextPath() + "/index.html");
-                break;
-            case "/user/":
-                request.getRequestDispatcher(subPath).forward(request, response);
                 break;
             default:
                 request.getRequestDispatcher(subPath).forward(request, response);
