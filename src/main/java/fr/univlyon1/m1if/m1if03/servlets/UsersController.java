@@ -23,8 +23,10 @@ public class UsersController extends HttpServlet {
             throws ServletException, IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
-
+        System.out.println("Controller Users = "+ path);
         String subPath = path.substring(6);
+        System.out.println("le sous path controller = "+ subPath);
+
         //check if the path isn't looping
         if(subPath.startsWith("/users")) {
             response.sendError(404);
