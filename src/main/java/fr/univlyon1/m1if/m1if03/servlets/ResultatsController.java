@@ -28,34 +28,45 @@ public class ResultatsController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             assert(context.getAttribute("candidats") != null);
-
-            ObjectMapper om = new ObjectMapper();
-
-            List<LinkedHashMap<String, Object>> result = new ArrayList<>();
-
-            Map<String, Integer> votes = new HashMap<>();
-            for (String nomCandidat : ((Map<String, Candidat>) context.getAttribute("candidats")).keySet()) {
-                votes.put(nomCandidat, 0);
+            String authorizationHeader = request.getHeader("Authorization");
+            authorizationHeader = request.getHeader("Authorization");
+            String token = "INVALID_TOKEN";
+            if (authorizationHeader == null || !authorizationHeader.split(" ")[0].equals("Bearer")) {
+                //No header "Authorization".
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "La ressource demandé n'est pas disponible, il faut un token");
+                return;
             }
-            if(context.getAttribute("bulletins") != null) {
-                List<Bulletin> lesBulletins = new ArrayList<>((List<Bulletin>) context.getAttribute("bulletins"));
-                for (Bulletin b : lesBulletins) {
-                    int score = votes.get(b.getCandidat().getNom());
-                    votes.put(b.getCandidat().getNom(), ++score);
+            token = authorizationHeader.split(" ")[1];
+            try {
+                ObjectMapper om = new ObjectMapper();
+                List<LinkedHashMap<String, Object>> result = new ArrayList<>();
+                Map<String, Integer> votes = new HashMap<>();
+                for (String nomCandidat : ((Map<String, Candidat>) context.getAttribute("candidats")).keySet()) {
+                    votes.put(nomCandidat, 0);
                 }
-            }
+                if(context.getAttribute("bulletins") != null) {
+                    List<Bulletin> lesBulletins = new ArrayList<>((List<Bulletin>) context.getAttribute("bulletins"));
+                    for (Bulletin b : lesBulletins) {
+                        int score = votes.get(b.getCandidat().getNom());
+                        votes.put(b.getCandidat().getNom(), ++score);
+                    }
+                }
 
-            for(String i : votes.keySet()) {
-                LinkedHashMap<String, Object> tmp = new LinkedHashMap<>();
-                tmp.put("nomCandidat",i);
-                tmp.put("votes", votes.get(i));
-                result.add(tmp);
-            }
+                for(String i : votes.keySet()) {
+                    LinkedHashMap<String, Object> tmp = new LinkedHashMap<>();
+                    tmp.put("nomCandidat",i);
+                    tmp.put("votes", votes.get(i));
+                    result.add(tmp);
+                }
 
-            String json = om.writeValueAsString(result);
-            response.setContentType("application/json");
-            response.getWriter().print(json);
-            response.getWriter().flush();
+                String json = om.writeValueAsString(result);
+                response.setContentType("application/json");
+                response.getWriter().print(json);
+                response.getWriter().flush();
+            } catch(Exception e) {
+                //Invalid token.
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utilisateur non authentifié");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -37,6 +37,8 @@ public class InitFilter extends HttpFilter {
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
+        uncaught.add("/user/login");
+        uncaught.add("/user/logout");
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -72,14 +74,6 @@ public class InitFilter extends HttpFilter {
                         response.sendRedirect(context.getContextPath() + "/index.html");
                         return;
                     } else {
-
-                        ObjectMapper om = new ObjectMapper();
-                        String monToken = ElectionM1if03JwtHelper.generateToken(request.getParameter("nom"), false, request);
-                        String json = om.writeValueAsString(monToken);
-                        response.setContentType("application/json");
-                        response.getWriter().print(json);
-                        response.getWriter().flush();
-
 
                         session = request.getSession(true);
                         session.setAttribute("user", new User(login,

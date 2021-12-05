@@ -5,6 +5,8 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univlyon1.m1if.m1if03.classes.Candidat;
+import fr.univlyon1.m1if.m1if03.classes.User;
 import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
 
 import javax.servlet.ServletConfig;
@@ -14,14 +16,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "UsersController", urlPatterns ={"/users", "/users/*"})
 public class UsersController extends HttpServlet {
     ServletContext context;
-
+    ElectionM1if03JwtHelper jwt = new ElectionM1if03JwtHelper();
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -49,8 +53,62 @@ public class UsersController extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String authorizationHeader = req.getHeader("Authorization");
+        String path = req.getRequestURI().substring(req.getContextPath().length());
+        String subPath = path.substring(7); // on enlève /candidats
+        switch (subPath){
+            case "login":
+                String login = req.getParameter("login");
+                String nom = req.getParameter("nom");
+                boolean isAdmin = (req.getParameter("admin")) == "on" ? true : false;
+
+                if (login == null || login.equals("")) {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Paramètres de la requète non acceptables."); //Bad request
+                } else {
+                    resp.setHeader("location", req.getRequestURI() + "/" + login);
+                    String token = jwt.generateToken(req.getParameter("login"), isAdmin, req);
+                    resp.setHeader("Authorization", "Bearer " + token);
+                    resp.setStatus(HttpServletResponse.SC_OK);
+
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    User user = new User(login, nom, isAdmin);
+                    String jsonUser = objectMapper.writeValueAsString(user);
+                    resp.setContentType("application/json");
+                    resp.getWriter().print(jsonUser);
+                    resp.getWriter().flush();
+                }
+                break;
+            case "logout":
+                authorizationHeader = req.getHeader("Authorization");
+                String token = "INVALID_TOKEN";
+                if (authorizationHeader == null || !authorizationHeader.split(" ")[0].equals("Bearer")) {
+                    //No header "Authorization".
+                    resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utilisateur non authentifié");
+                    return;
+                }
+                token = authorizationHeader.split(" ")[1];
+                try {
+                    jwt.verifyToken(token, req);
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    resp.setContentType("application/json" + "; charset=utf-8");
+                    resp.getWriter().write("Successful operation");
+                } catch(Exception e) {
+                    //Invalid token.
+                    resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utilisateur non authentifié");
+                }
+                break;
+                case "user":
+                if (req.getParameter("nom") != null && !(req.getParameter("nom").equals(""))) {
+                    User user = (User) req.getSession().getAttribute("user");
+                    user.setNom(req.getParameter("nom"));
+                    req.getRequestDispatcher("/WEB-INF/components/electionHome.jsp").forward(req, resp);
+                }
+                break;
+                default:
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+                break;
+        }
     }
 
     //creer un utilisateur
@@ -68,7 +126,7 @@ public class UsersController extends HttpServlet {
         response.getWriter().print(json);
         response.getWriter().flush();
 
-        System.out.println("Token : "+ ElectionM1if03JwtHelper.verifyToken(request.getHeader(HttpHeaders.AUTHORIZATION).substring(7), request));
+        System.out.println("Token : "+ ElectionM1if03JwtHelper.verifyToken(request.getHeader(HttpHeaders.AUTHORIZATION).substring(7).toString().toString(), request));
 
     }
 }
