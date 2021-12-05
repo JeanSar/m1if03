@@ -27,6 +27,7 @@ public class InitFilter extends HttpFilter {
         uncaught.add("/election");
         uncaught.add("/users");
         uncaught.add("/ballots");
+        uncaught.add("/candidats");
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");

@@ -1,5 +1,7 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,29 +21,34 @@ public class CandidatController extends HttpServlet {
         context = config.getServletContext();
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response )  throws IOException {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response ) throws IOException, ServletException {
         String path = request.getRequestURI().substring(request.getContextPath().length());
-        System.out.println("Controller Candidats = "+ path);
+
         String subPath = path.substring(10); // on enlève /candidats
         System.out.println("le sous path controller = "+ subPath);
 
-        response.sendRedirect(context.getContextPath() + "/index.html");
+        //response.sendRedirect(context.getContextPath() + "/index.html");
         // TODO : manage actions in switch on the subPath parsing
-        /*switch (subPath) {
-            case "/":
+        switch (subPath) {
             case "":
+                try {
+                    assert(context.getAttribute("candidats")!= null);
+                    ObjectMapper om = new ObjectMapper();
+                    String json = om.writeValueAsString(context.getAttribute("candidats"));
 
+                    response.setContentType("application/json");
+                    response.getWriter().print(json);
+                    response.getWriter().flush();
+                } catch( IOException e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+                }
                 break;
             default:
                 request.getRequestDispatcher(subPath).forward(request, response);
                 break;
-        }*/
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-
-        processRequest(request, response);
+        }
     }
 
     @Override
