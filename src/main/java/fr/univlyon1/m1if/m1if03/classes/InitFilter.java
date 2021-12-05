@@ -1,8 +1,5 @@
 package fr.univlyon1.m1if.m1if03.classes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
-
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -14,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -90,7 +85,7 @@ public class InitFilter extends HttpFilter {
                         }
                     }
                 } else {
-                    response.sendRedirect(context.getContextPath() + "/index.html");
+                    response.sendError(401);
                     return;
                 }
             }

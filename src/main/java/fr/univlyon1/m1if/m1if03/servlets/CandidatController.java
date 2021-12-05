@@ -25,7 +25,7 @@ public class CandidatController extends HttpServlet {
         context = config.getServletContext();
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response ) throws IOException, ServletException {
+    public void processRequest(HttpServletRequest request, HttpServletResponse response ) throws IOException {
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
         String subPath = path.substring(10); // on enlève /candidats
@@ -72,7 +72,27 @@ public class CandidatController extends HttpServlet {
                 }
                 break;
             default:
-                request.getRequestDispatcher(subPath).forward(request, response);
+                try {
+                    String idCandidat = subPath.substring(2); // on enlève le "/:"
+                    assert(context.getAttribute("candidats")!= null);
+                    Candidat returned = ((Map<String, Candidat>) context.getAttribute("candidats"))
+                            .get(idCandidat.replace('_', ' '));
+
+                    if(returned != null) {
+                        ObjectMapper om = new ObjectMapper();
+                        String json = om.writeValueAsString(returned);
+                        response.setContentType("application/json");
+                        response.getWriter().print(json);
+                        response.getWriter().flush();
+                    } else {
+                        System.out.println("No res found for " + idCandidat);
+                        response.sendError(404);
+                    }
+                } catch( IOException e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération d'un candidat.");
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+                }
                 break;
 
         }
