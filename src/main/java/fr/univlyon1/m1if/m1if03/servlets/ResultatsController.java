@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.json.simple.JSONObject;
+
 @WebServlet(name = "ResultatsController", urlPatterns = "/resultats")
 public class ResultatsController extends HttpServlet {
     ServletContext context;
