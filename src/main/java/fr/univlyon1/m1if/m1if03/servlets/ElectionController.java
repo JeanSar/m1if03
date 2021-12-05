@@ -25,7 +25,7 @@ public class ElectionController extends HttpServlet {
         String path = request.getRequestURI().substring(request.getContextPath().length());
         System.out.println("Controller Election = "+ path);
         String subPath = path.substring(9); // on enlève /election
-        System.out.println("le sous path controller = "+ subPath);
+        //System.out.println("le sous path controller = "+ subPath);
 
         //check if the path isn't looping
         if(subPath.startsWith("/users")) {

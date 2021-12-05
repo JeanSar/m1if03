@@ -1,5 +1,8 @@
 package fr.univlyon1.m1if.m1if03.classes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -11,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -66,6 +71,15 @@ public class InitFilter extends HttpFilter {
                         response.sendRedirect(context.getContextPath() + "/index.html");
                         return;
                     } else {
+
+                        ObjectMapper om = new ObjectMapper();
+                        String monToken = ElectionM1if03JwtHelper.generateToken(request.getParameter("nom"), false, request);
+                        String json = om.writeValueAsString(monToken);
+                        response.setContentType("application/json");
+                        response.getWriter().print(json);
+                        response.getWriter().flush();
+
+
                         session = request.getSession(true);
                         session.setAttribute("user", new User(login,
                                 request.getParameter("nom") != null ? request.getParameter("nom") : "",
