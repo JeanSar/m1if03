@@ -1,5 +1,7 @@
 package fr.univlyon1.m1if.m1if03.classes;
 
+import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 
 @WebFilter(filterName = "InitFilter" , urlPatterns="/*")
@@ -32,8 +33,8 @@ public class InitFilter extends HttpFilter {
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
-        uncaught.add("/user/login");
-        uncaught.add("/user/logout");
+        uncaught.add("/login");
+        uncaught.add("/logout");
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -41,8 +42,6 @@ public class InitFilter extends HttpFilter {
         //getting the filtered page path
         String path = request.getRequestURI().substring(request.getContextPath().length());
         String referer = request.getHeader("Referer");
-
-        HttpSession session = request.getSession(false);
 
         // check if the path must be filtered
         boolean isCaught = true;
@@ -54,45 +53,22 @@ public class InitFilter extends HttpFilter {
             }
         }
 
-
         if(isCaught) {
-            if((session == null) || (session.getAttribute("user") == null)) {
-
-                System.out.println("\nPath(Filter) : " + path);
-                System.out.println("In Context : " + request.getContextPath());
-                System.out.println("From referer : " + referer); //referer is the requesting entity client side path
-                System.out.println("CAUGHT");
-
-                String login = request.getParameter("login");
-                if (login != null) {
-                    if (login.equals("")){
-                        response.sendRedirect(context.getContextPath() + "/index.html");
-                        return;
-                    } else {
-
-                        session = request.getSession(true);
-                        session.setAttribute("user", new User(login,
-                                request.getParameter("nom") != null ? request.getParameter("nom") : "",
-                                request.getParameter("admin") != null
-                                        && request.getParameter("admin").equals("on")));
-
-                        Map<String, Ballot> ballots = (Map<String, Ballot>) context.getAttribute("ballots");
-
-                        //on test si l'utilisateur à déjà voté
-                        if(ballots.containsKey(login)) {
-                            session.setAttribute("ballot", ballots.get(login));
-                            session.setAttribute("bulletin", ballots.get(login).getBulletin());
-                        }
-                    }
-                } else {
-                    response.sendError(401);
-                    return;
-                }
+            System.out.println("\nPath(Filter) : " + path);
+            System.out.println("In Context : " + request.getContextPath());
+            System.out.println("From referer : " + referer); //referer is the requesting entity client side path
+            System.out.println("CAUGHT");
+            try {
+                String authorizationHeader = request.getHeader("apiKey");
+                String token = authorizationHeader.split(" ")[1];
+                ElectionM1if03JwtHelper.verifyToken(token, request);
+                response.setHeader("Authorization", "Bearer " + token);
+            } catch(Exception e) {
+                //Invalid token.
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Utilisateur non authentifié");
             }
-
         }
         chain.doFilter(request, response);
-
     }
 
     public void destroy() {
