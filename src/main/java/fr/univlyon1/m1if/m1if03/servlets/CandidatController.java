@@ -20,6 +20,22 @@ public class CandidatController extends HttpServlet {
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response )  throws ServletException, IOException {
+        String path = request.getRequestURI().substring(request.getContextPath().length());
+
+        String subPath = path.substring(10); // on enlève /candidats
+        System.out.println("le sous path controller = "+ subPath);
+
+        response.sendRedirect(context.getContextPath() + "/index.html");
+        // TODO : manage actions in switch on the subPath parsing
+        /*switch (subPath) {
+            case "/":
+            case "":
+
+                break;
+            default:
+                request.getRequestDispatcher(subPath).forward(request, response);
+                break;
+        }*/
     }
 
     @Override

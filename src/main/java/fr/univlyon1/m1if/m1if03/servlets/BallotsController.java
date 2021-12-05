@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Controller", urlPatterns = {"/election", "/election/*"})
-public class ElectionController extends HttpServlet {
+@WebServlet(name = "Controller", urlPatterns = {"/ballots", "/ballots/*"})
+public class BallotsController extends HttpServlet {
     ServletContext context;
 
     @Override
@@ -24,23 +24,20 @@ public class ElectionController extends HttpServlet {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        String subPath = path.substring(9); // on enlève /election
-        //System.out.println("le sous path controller = "+ subPath);
+        String subPath = path.substring(8); // on enlève /ballots
+        System.out.println("le sous path controller = "+ subPath);
 
-        //check if the path isn't looping
-        if(subPath.startsWith("/users")) {
-            response.sendError(404);
-        }
-
-        switch (subPath) {
+        response.sendRedirect(context.getContextPath() + "/index.html");
+        // TODO : manage actions in switch on the subPath parsing
+        /*switch (subPath) {
             case "/":
             case "":
-                response.sendRedirect(context.getContextPath() + "/index.html");
+
                 break;
             default:
                 request.getRequestDispatcher(subPath).forward(request, response);
                 break;
-        }
+        }*/
     }
 
     @Override
