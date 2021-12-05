@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //import org.json.simple.JSONObject;
 
@@ -34,6 +31,8 @@ public class ResultatsController extends HttpServlet {
 
             ObjectMapper om = new ObjectMapper();
 
+            List<LinkedHashMap<String, Object>> result = new ArrayList<>();
+
             Map<String, Integer> votes = new HashMap<>();
             for (String nomCandidat : ((Map<String, Candidat>) context.getAttribute("candidats")).keySet()) {
                 votes.put(nomCandidat, 0);
@@ -45,12 +44,19 @@ public class ResultatsController extends HttpServlet {
                     votes.put(b.getCandidat().getNom(), ++score);
                 }
             }
-            String json = om.writeValueAsString(votes);
+
+            for(String i : votes.keySet()) {
+                LinkedHashMap<String, Object> tmp = new LinkedHashMap<>();
+                tmp.put("nomCandidat",i);
+                tmp.put("votes", votes.get(i));
+                result.add(tmp);
+            }
+
+            String json = om.writeValueAsString(result);
             response.setContentType("application/json");
             response.getWriter().print(json);
             response.getWriter().flush();
-            //request.setAttribute("votes", votes);
-            //request.getRequestDispatcher("/WEB-INF/components/resultats.jsp").include(request, response);
+
         } catch (IOException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erreur dans la récupération de la liste des candidats.");
