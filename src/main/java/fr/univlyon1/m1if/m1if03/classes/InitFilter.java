@@ -66,7 +66,7 @@ public class InitFilter extends HttpFilter {
                 System.out.println("\nPath(Filter) : " + path);
                 System.out.println("In Context : " + request.getContextPath());
                 System.out.println("From referer : " + referer); //referer is the requesting entity client side path
-                System.out.println("CAUGHT");
+                System.out.println("CAUGHT!!");
 
                 String login = request.getParameter("login");
                 if (login != null) {
