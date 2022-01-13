@@ -27,13 +27,24 @@ public class ListBallotController extends HttpServlet {
         Map<String, Ballot> ballots = (Map<String, Ballot>) getServletContext().getAttribute("ballots");
         request.setAttribute("ballots", ballots);
         request.getRequestDispatcher("/WEB-INF/components/listBallots.jsp").include(request, response);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         processRequest(request, response);
+    }
+
+    //pour creer un ballot
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
+
+    //pour supprimer un ballot
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
     }
 
     @Override

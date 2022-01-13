@@ -1,8 +1,10 @@
 package fr.univlyon1.m1if.m1if03.servlets;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.univlyon1.m1if.m1if03.classes.Ballot;
 import fr.univlyon1.m1if.m1if03.classes.Bulletin;
 import fr.univlyon1.m1if.m1if03.classes.User;
+import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
 
 import javax.servlet.http.*;
 import javax.servlet.*;

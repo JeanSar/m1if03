@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserController", urlPatterns = {"/user/*"})
-public class UserController extends HttpServlet {
+@WebServlet(name = "BallotsController", urlPatterns = {"/ballots", "/ballots/*"})
+public class BallotsController extends HttpServlet {
     ServletContext context;
 
     @Override
@@ -20,30 +20,35 @@ public class UserController extends HttpServlet {
     }
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response )
-            throws ServletException, IOException {
+            throws IOException {
 
         String path = request.getRequestURI().substring(request.getContextPath().length());
 
-        String subPath = path.substring(5);
-        //check if the path isn't looping
-        if(subPath.startsWith("/user")) {
-            response.sendError(404);
-        }
+        String subPath = path.substring(8); // on enlève /ballots
+        System.out.println("le sous path controller = "+ subPath);
 
-        if ("/settings".equals(subPath)) {
-            request.getRequestDispatcher("/WEB-INF/components/settings.jsp").include(request, response);
-        } else {
-            request.getRequestDispatcher(subPath).forward(request, response);
-        }
+        response.sendRedirect(context.getContextPath() + "/index.html");
+        // TODO : manage actions in switch on the subPath parsing
+        /*switch (subPath) {
+            case "/":
+            case "":
+
+                break;
+            default:
+                request.getRequestDispatcher(subPath).forward(request, response);
+                break;
+        }*/
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
         processRequest(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         processRequest(request, response);
     }
 }

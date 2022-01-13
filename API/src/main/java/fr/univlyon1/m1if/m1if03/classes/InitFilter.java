@@ -1,5 +1,8 @@
 package fr.univlyon1.m1if.m1if03.classes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.univlyon1.m1if.m1if03.utils.ElectionM1if03JwtHelper;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletContext;
@@ -11,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -25,9 +30,15 @@ public class InitFilter extends HttpFilter {
         //these are files/paths that not needs to be filtered
         uncaught.add("/");
         uncaught.add("/election");
+        uncaught.add("/users");
+        uncaught.add("/noms");
+        uncaught.add("/ballots");
+        uncaught.add("/candidats");
         uncaught.add("/resultats");
         uncaught.add("/index.html");
         uncaught.add("/vote.css");
+        uncaught.add("/user/login");
+        uncaught.add("/user/logout");
     }
     @Override
     public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -55,7 +66,7 @@ public class InitFilter extends HttpFilter {
                 System.out.println("\nPath(Filter) : " + path);
                 System.out.println("In Context : " + request.getContextPath());
                 System.out.println("From referer : " + referer); //referer is the requesting entity client side path
-                System.out.println("CAUGHT");
+                System.out.println("CAUGHT!!");
 
                 String login = request.getParameter("login");
                 if (login != null) {
@@ -63,6 +74,7 @@ public class InitFilter extends HttpFilter {
                         response.sendRedirect(context.getContextPath() + "/index.html");
                         return;
                     } else {
+
                         session = request.getSession(true);
                         session.setAttribute("user", new User(login,
                                 request.getParameter("nom") != null ? request.getParameter("nom") : "",
