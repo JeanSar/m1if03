@@ -1,6 +1,8 @@
-# M1IF03-TP7 - Optimisation d'une Single-Page Application
+# PROJET M1IF03
 
-### Description de ce qui a été fait :
+### Auteurs
+Jean SAURY
+Hamza TOUHARDJI
 
 #### Analyse du déploiement sur Tomcat :
 
@@ -17,8 +19,3 @@
 ### Déploiement TP5 & TP7 : 
 - https://192.168.75.35/v2/
 - https://192.168.75.35/Client/
-
-
-## Jean SAURY
-## Hamza TOUHARDJI
-
