@@ -1,9 +1,24 @@
-# tomcat
-HTML : 638
-DOM : -294.90000000037253
-AppShell : 332.09999999962747
+# M1IF03-TP7 - Optimisation d'une Single-Page Application
 
-# nginx
-HTML : 497.6000000014901
-DOM : -267
-AppShell : 119.30000000074506
+### Description de ce qui a été fait :
+
+#### Analyse du déploiement sur Tomcat :
+
+- Temps de chargement de la page HTML initiale : 638 ms
+- Temps d'affichage de l'app shell : 332 ms
+- Temps d'affichage du chemin critique de rendu (CRP) : 427 ms
+
+#### Analyse du déploiement sur nginx en tant que fichiers statiques :
+
+- Temps de chargement de la page HTML initiale : 497 ms
+- Temps d'affichage de l'app shell :  119 ms
+- Temps d'affichage du chemin critique de rendu (CRP) : 267 ms
+
+### Déploiement TP5 & TP7 : 
+- https://192.168.75.35/v2/
+- https://192.168.75.35/Client/
+
+
+## Jean SAURY
+## Hamza TOUHARDJI
+
