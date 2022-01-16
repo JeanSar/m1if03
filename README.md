@@ -16,6 +16,14 @@ Hamza TOUHARDJI
 - Temps d'affichage de l'app shell :  119 ms
 - Temps d'affichage du chemin critique de rendu (CRP) : 267 ms
 
+#### Optimisation de l'application :
+- Performance : 100%
+- Accessibilité : 96%
+- Best Practices : 87%
+- SEO : 78%
+
 ### Déploiement TP5 & TP7 : 
+- https://192.168.75.35/v1/
 - https://192.168.75.35/v2/
+- https://192.168.75.35/v3/
 - https://192.168.75.35/Client/
