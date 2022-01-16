@@ -24,6 +24,6 @@ Hamza TOUHARDJI
 
 ### Déploiement TP5 & TP7 : 
 - https://192.168.75.35/v1/
-- https://192.168.75.35/v2/
+- https://192.168.75.35/v2-officiel/
 - https://192.168.75.35/v3/
 - https://192.168.75.35/Client/
